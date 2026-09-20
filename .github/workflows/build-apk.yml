@@ -24,16 +24,26 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build Android APK with Capacitor
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Organize Assets & Build Android APK
         run: |
+          mkdir -p css js
+          cp -f style.css player.css css/ 2>/dev/null || true
+          cp -f app.js player.js api.js storage.js gesture.js js/ 2>/dev/null || true
+          
+          npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init NovaVance com.novavance.app --web-dir=.
+          npx cap init "NovaVance" "com.novavance.app" --web-dir "."
           npx cap add android
+          npx cap sync android
+          
           cd android
           chmod +x ./gradlew
           ./gradlew assembleDebug
 
-      - name: Upload Generated APK to GitHub
+      - name: Upload Generated APK
         uses: actions/upload-artifact@v4
         with:
           name: NovaVance-Debug-APK
