@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NovaVance - مشغل الوسائط المستقل الخارق</title>
+  
+  <!-- PWA & Mobile Meta Tags -->
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body class="theme-amoled">
+  
+  <!-- Desktop / Preview Container Frame Wrapper -->
+  <div class="app-layout" id="appLayout">
+    
+    <!-- Mobile Shell Mockup Container -->
+    <div class="mobile-frame" id="mobileFrame">
+      
+      <!-- Top Status Bar & App Header -->
+      <header class="app-header" id="appHeader">
+        <div class="header-main">
+          <div class="brand-logo" id="btnLogo">
+            <div class="logo-icon">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="logo-text">Nova<span>Vance</span></span>
+            <span class="badge-pro">PRO</span>
+          </div>
+
+          <div class="header-actions">
+            <button class="icon-btn" id="btnOpenQR" title="فتح على الموبايل عبر QR Code" style="color: var(--accent-cyan);">
+              <i class="fa-solid fa-qrcode"></i>
+            </button>
+            <button class="icon-btn" id="btnOpenSearch" title="بحث">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="icon-btn" id="btnOpenDownloads" title="التنزيلات">
+              <i class="fa-solid fa-arrow-down-to-bracket"></i>
+            </button>
+            <button class="icon-btn" id="btnOpenSettings" title="الإعدادات">
+              <i class="fa-solid fa-sliders"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Filter Chips -->
+        <nav class="categories-bar" id="categoriesBar">
+          <button class="chip active" data-category="all">الكل</button>
+          <button class="chip" data-category="trending">🔥 الرائج</button>
+          <button class="chip" data-category="music">🎵 موسيقى</button>
+          <button class="chip" data-category="gaming">🎮 ألعاب</button>
+          <button class="chip" data-category="tech">💻 تقنية وبرمجة</button>
+          <button class="chip" data-category="podcasts">🎙️ بودكاست</button>
+          <button class="chip" data-category="nature">🌿 طبيعة 4K</button>
+        </nav>
+      </header>
+
+      <!-- Search Overlay Modal -->
+      <div class="search-overlay" id="searchOverlay">
+        <div class="search-header">
+          <button class="icon-btn" id="btnCloseSearch">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-leading-icon"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن فيديوهات، قنوات، أو موسيقى..." autocomplete="off">
+            <button class="icon-btn clear-btn" id="btnClearSearch">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <button class="btn-search-action" id="btnExecuteSearch">بحث</button>
+        </div>
+
+        <div class="search-suggestions" id="searchSuggestions">
+          <div class="suggestion-group-title">عمليات البحث الشائعة</div>
+          <div class="tag-cloud">
+            <span class="search-tag" data-query="برمجة وتطوير التطبيقات"><i class="fa-solid fa-arrow-trend-up"></i> برمجة وتطوير التطبيقات</span>
+            <span class="search-tag" data-query="Lo-Fi Beats 4K Relax"><i class="fa-solid fa-arrow-trend-up"></i> Lo-Fi Beats 4K Relax</span>
+            <span class="search-tag" data-query="موسيقى استرخاء وهدوء"><i class="fa-solid fa-arrow-trend-up"></i> موسيقى استرخاء وهدوء</span>
+            <span class="search-tag" data-query="أقوى ألعاب 2026"><i class="fa-solid fa-arrow-trend-up"></i> أقوى ألعاب 2026</span>
+            <span class="search-tag" data-query="بودكاست الذكاء الاصطناعي"><i class="fa-solid fa-arrow-trend-up"></i> بودكاست الذكاء الاصطناعي</span>
+          </div>
+        </div>
+
+        <!-- Search Results Container -->
+        <div class="search-results-list" id="searchResultsList"></div>
+      </div>
+
+      <!-- Main Scrollable Content Viewports -->
+      <main class="app-main-content" id="mainContent">
+        
+        <!-- Tab 1: Home Feed -->
+        <section class="tab-view active" id="tabHome">
+          
+          <!-- Quick Super Features Banner -->
+          <div class="vance-feature-banner">
+            <div class="banner-badge"><i class="fa-solid fa-shield-halved"></i> 100% بدون إعلانات</div>
+            <div class="banner-title">مرحباً بك في NovaVance!</div>
+            <div class="banner-desc">استمتع بتشغيل الفيديوهات في الخلفية، تخطي الرعاة تلقائياً، والتحميل مجاناً.</div>
+            <div class="banner-pills">
+              <span><i class="fa-solid fa-headphones"></i> تشغيل بالخلفية</span>
+              <span><i class="fa-solid fa-forward-step"></i> SponsorBlock</span>
+              <span><i class="fa-solid fa-photo-film"></i> PiP صورة داخل صورة</span>
+            </div>
+          </div>
+
+          <!-- Video Grid / Feed Container -->
+          <div class="video-feed" id="homeVideoFeed">
+            <!-- Dynamic Video Cards inserted by JS -->
+          </div>
+        </section>
+
+        <!-- Tab 2: Subscriptions Feed -->
+        <section class="tab-view" id="tabSubscriptions">
+          <div class="section-title-bar">
+            <h2><i class="fa-solid fa-users-viewfinder"></i> الاشتراكات والقنوات</h2>
+          </div>
+          
+          <!-- Channels Avatar Carousel -->
+          <div class="channels-carousel" id="subsChannelsList">
+            <!-- Populated dynamically -->
+          </div>
+
+          <div class="subs-feed-title">أحدث الفيديوهات من قنواتك</div>
+          <div class="video-feed" id="subsVideoFeed">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- Tab 3: Downloads / Offline Tab -->
+        <section class="tab-view" id="tabDownloads">
+          <div class="section-title-bar">
+            <h2><i class="fa-solid fa-download"></i> التنزيلات والمشاهدة دون اتصال</h2>
+            <button class="btn-pill-small" id="btnClearDownloads"><i class="fa-solid fa-trash"></i> مسح الكل</button>
+          </div>
+          
+          <div class="storage-info-card">
+            <div class="storage-icon"><i class="fa-solid fa-hard-drive"></i></div>
+            <div class="storage-details">
+              <div class="storage-label">المساحة المستخدمة محلياً</div>
+              <div class="storage-bar-wrapper">
+                <div class="storage-bar" style="width: 28%;"></div>
+              </div>
+              <div class="storage-stats">1.4 GB مستخدم من 128 GB</div>
+            </div>
+          </div>
+
+          <div class="downloads-list" id="downloadsList">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- Tab 4: Library Tab -->
+        <section class="tab-view" id="tabLibrary">
+          <div class="section-title-bar">
+            <h2><i class="fa-solid fa-folder-closed"></i> المكتبة وسجل المشاهدة</h2>
+          </div>
+
+          <!-- History Carousel -->
+          <div class="library-section">
+            <div class="lib-sec-header">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> سجل المشاهدة</h3>
+              <button class="link-btn" id="btnClearHistory">مسح السجل</button>
+            </div>
+            <div class="history-carousel" id="historyCarousel">
+              <!-- Dynamic history items with resume playback bars -->
+            </div>
+          </div>
+
+          <!-- Library Quick Links -->
+          <div class="library-menu">
+            <div class="lib-menu-item" id="btnLibLiked">
+              <div class="menu-icon liked"><i class="fa-solid fa-thumbs-up"></i></div>
+              <div class="menu-info">
+                <div class="menu-title">الفيديوهات التي أعجبتني</div>
+                <div class="menu-subtitle" id="likedCountText">0 فيديوهات</div>
+              </div>
+              <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </div>
+
+            <div class="lib-menu-item" id="btnLibWatchLater">
+              <div class="menu-icon watch-later"><i class="fa-solid fa-clock"></i></div>
+              <div class="menu-info">
+                <div class="menu-title">المشاهدة لاحقاً</div>
+                <div class="menu-subtitle" id="watchLaterCountText">0 فيديوهات</div>
+              </div>
+              <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </div>
+
+            <div class="lib-menu-item" id="btnLibStats">
+              <div class="menu-icon stats"><i class="fa-solid fa-chart-pie"></i></div>
+              <div class="menu-info">
+                <div class="menu-title">إحصائيات توفير الوقت والرعاة</div>
+                <div class="menu-subtitle">تم تخطي 42 مقطع دعائي بنجاح</div>
+              </div>
+              <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </div>
+          </div>
+
+          <!-- Custom Playlists Section -->
+          <div class="library-section">
+            <div class="lib-sec-header">
+              <h3><i class="fa-solid fa-list-ul"></i> قوائم التشغيل</h3>
+              <button class="btn-pill-small" id="btnCreatePlaylist"><i class="fa-solid fa-plus"></i> قائمة جديدة</button>
+            </div>
+            <div class="playlists-grid" id="playlistsGrid">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- FLOATING / EXPANDABLE RE-VANCED VIDEO PLAYER VIEW -->
+      <div class="player-container collapsed" id="playerContainer">
+        
+        <!-- MINI PLAYER BAR (When Collapsed) -->
+        <div class="mini-player" id="miniPlayer">
+          <div class="mini-player-progress" id="miniPlayerProgress"></div>
+          <div class="mini-player-content">
+            <div class="mini-thumb-wrapper" id="btnExpandFromThumb">
+              <img src="" alt="Thumbnail" id="miniPlayerThumb" class="mini-thumb">
+              <div class="mini-playing-anim"><i class="fa-solid fa-volume-high"></i></div>
+            </div>
+            <div class="mini-info" id="btnExpandFromInfo">
+              <div class="mini-title" id="miniPlayerTitle">اسم الفيديو هنا</div>
+              <div class="mini-channel" id="miniPlayerChannel">اسم القناة</div>
+            </div>
+            <div class="mini-controls">
+              <button class="mini-btn" id="miniBtnPlayPause" title="تشغيل / إيقاف">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <button class="mini-btn" id="miniBtnClose" title="إغلاق المشغل">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL VIDEO PLAYER VIEW -->
+        <div class="full-player-view" id="fullPlayerView">
+          
+          <!-- Top Drag Bar & Full Player Header -->
+          <div class="player-drag-handle" id="playerDragHandle">
+            <div class="drag-bar-pill"></div>
+          </div>
+
+          <div class="player-top-bar">
+            <button class="icon-btn-player" id="btnCollapsePlayer" title="تصغير المشغل">
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="player-top-title" id="playerTopTitle">جاري التشغيل الآن</div>
+            <div class="player-top-actions">
+              <button class="icon-btn-player" id="btnAudioModeToggle" title="وضع الاستماع فقط (توفير البطارية)">
+                <i class="fa-solid fa-headphones"></i>
+              </button>
+              <button class="icon-btn-player" id="btnNativePiP" title="صورة داخل صورة (PiP)">
+                <i class="fa-solid fa-clone"></i>
+              </button>
+              <button class="icon-btn-player" id="btnPlayerSettings" title="إعدادات الجودة والسرعة">
+                <i class="fa-solid fa-gear"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Video Element & Touch Gesture Surface -->
+          <div class="video-wrapper" id="videoWrapper">
+            <video id="mainVideoPlayer" playsinline preload="metadata"></video>
+            
+            <!-- Audio-Only Mode Overlay Display -->
+            <div class="audio-mode-overlay" id="audioModeOverlay">
+              <div class="audio-glow-ring">
+                <img src="" id="audioModeThumb" alt="Cover" class="audio-cover-img">
+              </div>
+              <div class="audio-mode-badge"><i class="fa-solid fa-headphones"></i> وضع الاستماع الصوتي شغال بالخلفية</div>
+            </div>
+
+            <!-- Double Tap Ripple Seek Animators -->
+            <div class="seek-ripple left" id="seekRippleLeft">
+              <div class="ripple-content">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>10 ثوانٍ</span>
+              </div>
+            </div>
+            <div class="seek-ripple right" id="seekRippleRight">
+              <div class="ripple-content">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>10 ثوانٍ</span>
+              </div>
+            </div>
+
+            <!-- Gesture Overlay Indicator (Brightness / Volume) -->
+            <div class="gesture-indicator" id="gestureIndicator">
+              <i class="fa-solid fa-volume-high" id="gestureIcon"></i>
+              <div class="gesture-bar-track">
+                <div class="gesture-bar-fill" id="gestureBarFill"></div>
+              </div>
+              <span id="gestureValText">75%</span>
+            </div>
+
+            <!-- SponsorBlock Skip Toast Notification -->
+            <div class="sponsor-toast" id="sponsorToast">
+              <div class="sponsor-toast-icon"><i class="fa-solid fa-forward-step"></i></div>
+              <div class="sponsor-toast-body">
+                <div class="sponsor-toast-title">تم تخطي مقطع ترويجي (SponsorBlock)</div>
+                <div class="sponsor-toast-detail" id="sponsorToastDetail">تم توفير 35 ثانية تلقائياً</div>
+              </div>
+              <button class="sponsor-toast-undo" id="btnUndoSkip">تراجع</button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="player-loading-spinner" id="playerSpinner">
+              <div class="spinner-ring"></div>
+            </div>
+
+            <!-- Video Custom Controls Overlay -->
+            <div class="video-controls-overlay" id="videoControlsOverlay">
+              <div class="center-controls">
+                <button class="control-btn" id="btnSeekBack10" title="رجوع 10 ثواني">
+                  <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button class="control-btn play-pause-btn" id="btnMainPlayPause" title="تشغيل / إيقاف">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="control-btn" id="btnSeekForward10" title="تقديم 10 ثواني">
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+
+              <!-- Bottom Bar with Timeline & Duration -->
+              <div class="video-bottom-controls">
+                
+                <!-- SponsorBlock Visual Timeline Bar -->
+                <div class="timeline-container" id="timelineContainer">
+                  <div class="timeline-track">
+                    <div class="sponsor-segments" id="sponsorSegments">
+                      <!-- Sponsor colored segments inserted by JS -->
+                    </div>
+                    <div class="timeline-buffered" id="timelineBuffered"></div>
+                    <div class="timeline-progress" id="timelineProgress"></div>
+                    <div class="timeline-thumb"></div>
+                  </div>
+                  <div class="time-tooltip" id="timeTooltip">00:00</div>
+                </div>
+
+                <div class="time-and-actions-row">
+                  <div class="time-display">
+                    <span id="currentTimeLabel">00:00</span> / <span id="totalDurationLabel">00:00</span>
+                  </div>
+
+                  <div class="timeline-quick-actions">
+                    <button class="action-tiny-btn" id="btnSpeedQuick" title="سرعة التشغيل">1.0x</button>
+                    <button class="action-tiny-btn" id="btnLoopToggle" title="تكرار الفيديو">
+                      <i class="fa-solid fa-repeat"></i>
+                    </button>
+                    <button class="action-tiny-btn" id="btnFullscreen" title="ملء الشاشة">
+                      <i class="fa-solid fa-expand"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Video Details, Channel Info, Actions, and Recommendations -->
+          <div class="video-details-scrollable">
+            
+            <div class="video-meta-card">
+              <h1 class="video-player-title" id="videoDetailTitle">عنوان الفيديو</h1>
+              <div class="video-stats-row">
+                <span id="videoDetailViews"><i class="fa-solid fa-eye"></i> 1.2M مشاهدة</span>
+                <span id="videoDetailDate"><i class="fa-solid fa-calendar"></i> منذ يومين</span>
+                <span class="badge-tag" id="videoQualityBadge">1080p 60fps</span>
+              </div>
+
+              <!-- Action Bar (Like, Dislike, Share, Download, Save, Background Audio) -->
+              <div class="video-action-bar">
+                <button class="action-pill" id="btnLike">
+                  <i class="fa-solid fa-thumbs-up"></i>
+                  <span id="likeCountText">124K</span>
+                </button>
+                <button class="action-pill" id="btnDislike">
+                  <i class="fa-solid fa-thumbs-down"></i>
+                </button>
+                <button class="action-pill" id="btnDownload">
+                  <i class="fa-solid fa-arrow-down-to-bracket"></i>
+                  <span>تنزيل</span>
+                </button>
+                <button class="action-pill" id="btnSavePlaylist">
+                  <i class="fa-solid fa-bookmark"></i>
+                  <span>حفظ</span>
+                </button>
+                <button class="action-pill" id="btnBackgroundToggle">
+                  <i class="fa-solid fa-headphones"></i>
+                  <span>صوت فقط</span>
+                </button>
+                <button class="action-pill" id="btnShare">
+                  <i class="fa-solid fa-share-nodes"></i>
+                  <span>مشاركة</span>
+                </button>
+              </div>
+
+              <!-- Channel Information Card -->
+              <div class="channel-info-card">
+                <div class="channel-avatar-wrapper" id="btnOpenChannel">
+                  <img src="" alt="Avatar" id="channelAvatarImg" class="channel-avatar">
+                </div>
+                <div class="channel-texts">
+                  <div class="channel-name-row">
+                    <span class="channel-name" id="channelNameText">اسم القناة</span>
+                    <i class="fa-solid fa-circle-check verified-badge"></i>
+                  </div>
+                  <div class="channel-subs" id="channelSubsCount">2.4M مشترك</div>
+                </div>
+                <button class="btn-subscribe" id="btnSubscribe">
+                  <i class="fa-solid fa-bell"></i>
+                  <span>اشتراك</span>
+                </button>
+              </div>
+
+              <!-- Description Dropdown Card -->
+              <div class="description-card" id="descriptionCard">
+                <div class="desc-header" id="btnToggleDesc">
+                  <span class="desc-preview-text" id="descPreviewText">وصف الفيديو...</span>
+                  <i class="fa-solid fa-chevron-down" id="descChevron"></i>
+                </div>
+                <div class="desc-full-content" id="descFullContent">
+                  <!-- Description text -->
+                </div>
+              </div>
+
+              <!-- Comments Preview Card -->
+              <div class="comments-card" id="commentsCard">
+                <div class="comments-header" id="btnToggleComments">
+                  <div class="comments-title">
+                    <span>التعليقات</span>
+                    <span class="comments-count" id="commentsCountBadge">342</span>
+                  </div>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                
+                <div class="comments-preview-item" id="topCommentPreview">
+                  <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop" class="comment-user-avatar">
+                  <div class="comment-preview-body">
+                    <div class="comment-author">أحمد خالد <span class="comment-time">منذ ساعتين</span></div>
+                    <div class="comment-text">فيديو ممتاز جداً وشرح احترافي كالعادة! شكراً لميزات NovaVance الرهيبة 🔥</div>
+                  </div>
+                </div>
+
+                <div class="comments-expanded-list" id="commentsExpandedList">
+                  <!-- Full comments rendered here -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Up Next / Related Videos Section -->
+            <div class="related-videos-section">
+              <div class="related-sec-title">
+                <span>فيديوهات مقترحة</span>
+                <span class="badge-autoplay"><i class="fa-solid fa-forward"></i> تشغيل تلقائي</span>
+              </div>
+              <div class="related-videos-feed" id="relatedVideosFeed">
+                <!-- Dynamic related videos -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BOTTOM NAVIGATION BAR -->
+      <nav class="bottom-nav-bar" id="bottomNav">
+        <button class="nav-item active" data-tab="tabHome">
+          <i class="fa-solid fa-house"></i>
+          <span>الرئيسية</span>
+        </button>
+        <button class="nav-item" data-tab="tabSubscriptions">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>الاشتراكات</span>
+        </button>
+        <button class="nav-item" data-tab="tabDownloads">
+          <i class="fa-solid fa-circle-arrow-down"></i>
+          <span>التنزيلات</span>
+        </button>
+        <button class="nav-item" data-tab="tabLibrary">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>المكتبة</span>
+        </button>
+      </nav>
+
+    </div>
+
+    <!-- QR CODE MOBILE CONNECT MODAL -->
+    <div class="modal-backdrop" id="qrModal">
+      <div class="modal-sheet" style="align-items: center; text-align: center; padding: 24px;">
+        <div class="modal-title" style="margin-bottom: 12px; font-size: 1.2rem;">
+          <i class="fa-solid fa-mobile-screen-button" style="color: var(--accent-cyan);"></i> افتح التطبيق وثبته على هاتفك فوراً
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">امسح الكود بكاميرا هاتفك (المتصل بنفس شبكة الواي فاي) لتثبيت NovaVance بنقرة واحدة</p>
+        
+        <div style="background: #ffffff; padding: 12px; border-radius: 16px; display: inline-block; box-shadow: 0 8px 24px rgba(0,229,255,0.25);">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=http://192.168.1.6:8080" alt="QR Code" style="width: 200px; height: 200px; display: block; border-radius: 8px;">
+        </div>
+
+        <div style="margin-top: 16px; background: var(--bg-surface-2); padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 8px;">
+          <span style="font-family: var(--font-english); font-weight: 700; color: var(--accent-cyan);" id="mobileDirectUrl">http://192.168.1.6:8080</span>
+        </div>
+
+        <button class="btn-pill-small" id="btnCloseQR" style="margin-top: 18px; padding: 8px 24px; background: var(--brand-red); color: #fff; font-weight: 700;">
+          إغلاق
+        </button>
+      </div>
+    </div>
+
+    <!-- SETTINGS & CUSTOMIZATION MODAL -->
+    <div class="modal-backdrop" id="settingsModal">
+      <div class="modal-sheet">
+        <div class="modal-header">
+          <div class="modal-title"><i class="fa-solid fa-sliders"></i> إعدادات NovaVance الخارقة</div>
+          <button class="icon-btn" id="btnCloseSettings"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="settings-group">
+            <div class="settings-group-title">ميزات SponsorBlock الذكية</div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">تخطي الرعاة تلقائياً</div>
+                <div class="setting-desc">تجاوز الإعلانات المدمجة والترويج داخل الفيديو فوراً</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="settingSponsorBlock" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">تخطي مقدمات وخاتمات المقاطع (Intros/Outros)</div>
+                <div class="setting-desc">الانتقال المباشر للمحتوى الفعلي</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="settingSkipIntro" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="settings-group-title">المشغل وجودة العرض</div>
+            
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">التشغيل التلقائي في الخلفية</div>
+                <div class="setting-desc">استمرار الصوت عند قفل الشاشة أو التبديل لتطبيق آخر</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="settingBgAudio" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">الجودة الافتراضية للفيديو</div>
+                <div class="setting-desc">اختر الدقة المفضلة عند التشغيل</div>
+              </div>
+              <select class="custom-select" id="settingDefaultQuality">
+                <option value="1080p">1080p (Full HD)</option>
+                <option value="720p" selected>720p (HD)</option>
+                <option value="480p">480p (توفير البيانات)</option>
+                <option value="audio">وضع الصوت فقط</option>
+              </select>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">ثيم AMOLED فائق السواد</div>
+                <div class="setting-desc">توفير البطارية وراحة قصوى للعين</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="settingAmoled" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="settings-group-title">الخصوصية والتخزين</div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <div class="setting-label">حفظ سجل المشاهدة محلياً</div>
+                <div class="setting-desc">تذكر موضع التوقف دون إرسال بياناتك لأي سيرفر</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="settingSaveHistory" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="app-toast" id="appToast">
+      <i class="fa-solid fa-circle-check toast-icon"></i>
+      <span class="toast-message">تمت العملية بنجاح</span>
+    </div>
+
+  </div>
+
+  <!-- Javascript Modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/gesture.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
