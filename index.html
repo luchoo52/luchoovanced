@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -364,6 +364,78 @@ img {
   object-fit: cover;
 }
 
+/* Inline Live Hover / In-View Video Preview */
+.inline-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  background: #000000;
+}
+
+.inline-preview-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inline-preview-overlay iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}
+
+.preview-badge-pill {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: none;
+  align-items: center;
+  gap: 5px;
+  z-index: 8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  animation: pulsePreviewBadge 1.5s infinite;
+}
+
+@keyframes pulsePreviewBadge {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+.inline-preview-overlay.active ~ .preview-badge-pill {
+  display: flex;
+}
+
+.infinite-scroll-loader {
+  padding: 24px 14px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  font-weight: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.infinite-scroll-loader i {
+  color: var(--yt-red);
+  font-size: 18px;
+}
+
 .yt-duration-badge {
   position: absolute;
   bottom: 8px;
@@ -375,6 +447,7 @@ img {
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 4px;
+  z-index: 6;
 }
 
 .yt-video-info-row {
@@ -1490,6 +1563,7 @@ img {
         <section class="tab-pane-view active" id="tabHome">
           <div class="stories-horizontal-bar" id="homeStoriesBar"></div>
           <div id="homeVideosFeed" style="display:flex; flex-direction:column;"></div>
+          <div id="homeInfiniteLoader" class="infinite-scroll-loader"><i class="fa-solid fa-spinner fa-spin"></i> <span>جاري تحميل المزيد من الفيديوهات...</span></div>
         </section>
 
         <!-- TAB 2: TRENDING -->
@@ -1499,6 +1573,7 @@ img {
             <button class="region-flag-pill" id="btnTrendingRefresh"><i class="fa-solid fa-rotate-right"></i> تحديث</button>
           </div>
           <div id="trendingVideosFeed" style="display:flex; flex-direction:column;"></div>
+          <div id="trendingInfiniteLoader" class="infinite-scroll-loader"><i class="fa-solid fa-spinner fa-spin"></i> <span>جاري تحميل المزيد...</span></div>
         </section>
 
         <!-- TAB 3: SUBSCRIPTIONS -->
@@ -2288,6 +2363,187 @@ const PlayerEngine = {
   }
 };
 
+// --- LIVE HOVER & IN-VIEW VIDEO PREVIEW MANAGER ---
+const PreviewManager = {
+  activeCard: null,
+  hoverTimer: null,
+  inViewTimer: null,
+  inViewObserver: null,
+
+  init() {
+    const scrollContainer = document.querySelector('.views-tab-content-container');
+    if ('IntersectionObserver' in window && scrollContainer) {
+      this.inViewObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            clearTimeout(this.inViewTimer);
+            this.inViewTimer = setTimeout(() => {
+              if (entry.isIntersecting && !PlayerEngine.currentVideo && !ChannelViewer.isOpen) {
+                this.startPreview(entry.target);
+              }
+            }, 650);
+          } else {
+            if (this.activeCard === entry.target) {
+              this.stopPreview(entry.target);
+            }
+          }
+        });
+      }, {
+        root: scrollContainer,
+        threshold: 0.8
+      });
+    }
+  },
+
+  attach(card, video) {
+    card._videoData = video;
+
+    // 1. Desktop Hover Autoplay Preview
+    card.addEventListener('mouseenter', () => {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = setTimeout(() => {
+        if (!PlayerEngine.currentVideo && !ChannelViewer.isOpen) {
+          this.startPreview(card);
+        }
+      }, 500);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      clearTimeout(this.hoverTimer);
+      this.stopPreview(card);
+    });
+
+    // 2. Mobile In-View Autoplay
+    if (this.inViewObserver) {
+      this.inViewObserver.observe(card);
+    }
+  },
+
+  startPreview(card) {
+    if (!card || !card._videoData) return;
+    if (this.activeCard === card) return;
+    this.stopAll();
+
+    const ytId = card._videoData.ytId;
+    if (!ytId) return;
+
+    const overlay = card.querySelector('.inline-preview-overlay');
+    if (!overlay) return;
+
+    // Create high-performance muted live player preview
+    overlay.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&controls=0&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&loop=1&playlist=${ytId}&hl=ar" allow="autoplay; encrypted-media"></iframe>`;
+    overlay.classList.add('active');
+    this.activeCard = card;
+  },
+
+  stopPreview(card) {
+    if (!card) return;
+    const overlay = card.querySelector('.inline-preview-overlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+      overlay.innerHTML = '';
+    }
+    if (this.activeCard === card) {
+      this.activeCard = null;
+    }
+  },
+
+  stopAll() {
+    clearTimeout(this.hoverTimer);
+    clearTimeout(this.inViewTimer);
+    if (this.activeCard) {
+      this.stopPreview(this.activeCard);
+    }
+    document.querySelectorAll('.inline-preview-overlay.active').forEach(o => {
+      o.classList.remove('active');
+      o.innerHTML = '';
+    });
+    this.activeCard = null;
+  }
+};
+
+// --- CONTINUOUS INFINITE SCROLL SYSTEM ---
+const InfiniteScrollEngine = {
+  topics: [
+    'سورة الكهف ماهر المعيقلي',
+    'الدحيح جديد',
+    'بودكاست فنجان ثمانية',
+    'عمرو دياب',
+    'Elzero Web School برمجة',
+    'أهداف ريال مدريد دوري أبطال أوروبا',
+    'فيصل السيف مراجعات تقنية 2026',
+    'تلاوات خاشعة مشاري العفاسي',
+    'وثائقيات الجزيرة',
+    'كايروكي جديد',
+    'خواطر أحمد الشقيري سين',
+    'تحديات الجيمنج العربي',
+    'أسرار التاريخ والعلوم',
+    'طرب زمان وموسيقى راقية'
+  ],
+  topicIndex: 0,
+  isLoading: false,
+  seenIds: new Set(),
+
+  init() {
+    const scrollContainer = document.querySelector('.views-tab-content-container');
+    if (!scrollContainer) return;
+
+    scrollContainer.addEventListener('scroll', () => {
+      if (this.isLoading) return;
+      if (App.activeTab !== 'tabHome' && App.activeTab !== 'tabTrending') return;
+
+      const scrollBottom = scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight;
+      if (scrollBottom < 450) {
+        this.loadNextBatch();
+      }
+    });
+  },
+
+  registerExisting(videos) {
+    if (!Array.isArray(videos)) return;
+    videos.forEach(v => {
+      const k = v.ytId || v.id;
+      if (k) this.seenIds.add(k);
+    });
+  },
+
+  async loadNextBatch() {
+    if (this.isLoading) return;
+    this.isLoading = true;
+
+    const loaderId = App.activeTab === 'tabTrending' ? 'trendingInfiniteLoader' : 'homeInfiniteLoader';
+    const loader = document.getElementById(loaderId);
+    if (loader) loader.style.display = 'flex';
+
+    const currentTopic = this.topics[this.topicIndex % this.topics.length];
+    this.topicIndex++;
+
+    try {
+      const results = await InvidiousEngine.search(currentTopic);
+      const newVideos = results.filter(item => {
+        if (item.type !== 'video' || !item.ytId) return false;
+        if (this.seenIds.has(item.ytId)) return false;
+        this.seenIds.add(item.ytId);
+        return true;
+      });
+
+      const containerId = App.activeTab === 'tabTrending' ? 'trendingVideosFeed' : 'homeVideosFeed';
+      const container = document.getElementById(containerId);
+
+      if (container && newVideos.length > 0) {
+        newVideos.forEach(v => {
+          container.appendChild(App.createVideoCard(v));
+        });
+      }
+    } catch (e) {}
+
+    setTimeout(() => {
+      this.isLoading = false;
+      if (loader) loader.style.display = 'none';
+    }, 400);
+  }
+};
+
 // --- APPLICATION MAIN ORCHESTRATOR ---
 const App = {
   activeTab: 'tabHome',
@@ -2295,6 +2551,9 @@ const App = {
   init() {
     PlayerEngine.init();
     ChannelViewer.init();
+    PreviewManager.init();
+    InfiniteScrollEngine.init();
+    InfiniteScrollEngine.registerExisting(MasterCatalog.feed);
     this.bindEvents();
     this.loadStories();
     this.loadHomeFeed();
@@ -2540,12 +2799,15 @@ const App = {
   createVideoCard(video) {
     const card = document.createElement('div');
     card.className = 'yt-video-card-item';
+    card.setAttribute('data-ytid', video.ytId);
     const channelName = video.channel ? video.channel.name : 'قناة يوتيوب';
     const channelAvatar = video.channel ? (video.channel.avatar || 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj') : 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
     
     card.innerHTML = `
       <div class="yt-thumb-container">
         <img src="${video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`}" alt="${video.title}" class="yt-thumb-img" loading="lazy">
+        <div class="inline-preview-overlay"></div>
+        <div class="preview-badge-pill"><i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي</div>
         <span class="yt-duration-badge">${video.duration || 'فيديو'}</span>
       </div>
       <div class="yt-video-info-row">
@@ -2564,19 +2826,27 @@ const App = {
       </div>
     `;
 
+    // Attach In-Feed Live Hover / In-View Autoplay Preview
+    PreviewManager.attach(card, video);
+
     // Click on Channel Avatar or Channel Name opens Channel Profile
     card.querySelector('.yt-channel-avatar').addEventListener('click', (e) => {
       e.stopPropagation();
+      PreviewManager.stopAll();
       ChannelViewer.open(video.channel || { name: channelName, avatar: channelAvatar });
     });
 
     card.querySelector('.channel-link-text').addEventListener('click', (e) => {
       e.stopPropagation();
+      PreviewManager.stopAll();
       ChannelViewer.open(video.channel || { name: channelName, avatar: channelAvatar });
     });
 
-    // Click on Card plays video
-    card.addEventListener('click', () => PlayerEngine.play(video));
+    // Click on Card plays video in full AMOLED player
+    card.addEventListener('click', () => {
+      PreviewManager.stopAll();
+      PlayerEngine.play(video);
+    });
     return card;
   },
 
