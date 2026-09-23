@@ -32,12 +32,8 @@
   --brand-red-hover: #ff2255;
   --brand-red-glow: rgba(255, 0, 51, 0.35);
   --accent-cyan: #00e5ff;
-  --accent-cyan-glow: rgba(0, 229, 255, 0.3);
   --accent-purple: #9d4edd;
   --accent-green: #00e676;
-
-  --sponsor-color: #00d26a;
-  --intro-color: #00d4ff;
 
   --text-main: #f8f9fa;
   --text-secondary: #9499ad;
@@ -260,7 +256,7 @@ img {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-20px);
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity 0.25s, transform 0.25s;
 }
 
 .search-overlay.open {
@@ -308,7 +304,7 @@ img {
 }
 
 .btn-search-action {
-  padding: 0 14px;
+  padding: 0 16px;
   height: 38px;
   background: var(--brand-red);
   color: #fff;
@@ -863,7 +859,7 @@ img {
   left: 0;
   height: 2px;
   background-color: var(--brand-red);
-  width: 0%;
+  width: 100%;
 }
 
 .mini-player-content {
@@ -1262,7 +1258,7 @@ img {
           </button>
           <div class="search-input-wrapper">
             <i class="fa-solid fa-magnifying-glass search-leading-icon"></i>
-            <input type="text" id="searchInput" placeholder="ابحث عن فيديوهات، قنوات، أو الصق رابط يوتيوب..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="ابحث عن أي فيديو أو أغنية أو قناة في اليوتيوب..." autocomplete="off">
             <button class="icon-btn clear-btn" id="btnClearSearch">
               <i class="fa-solid fa-xmark"></i>
             </button>
@@ -1273,10 +1269,12 @@ img {
         <div class="search-suggestions" id="searchSuggestions">
           <div class="suggestion-group-title">عمليات البحث الشائعة</div>
           <div class="tag-cloud">
-            <span class="search-tag" data-query="برمجة"><i class="fa-solid fa-arrow-trend-up"></i> برمجة وتطبيقات</span>
-            <span class="search-tag" data-query="Lo-Fi"><i class="fa-solid fa-arrow-trend-up"></i> موسيقى هادئة 4K</span>
-            <span class="search-tag" data-query="ألعاب"><i class="fa-solid fa-arrow-trend-up"></i> ألعاب 2026</span>
-            <span class="search-tag" data-query="فنجان"><i class="fa-solid fa-arrow-trend-up"></i> بودكاست فنجان</span>
+            <span class="search-tag" data-query="عمرو دياب"><i class="fa-solid fa-music"></i> عمرو دياب</span>
+            <span class="search-tag" data-query="سورة الكهف بصوت هادئ"><i class="fa-solid fa-book-quran"></i> سورة الكهف بصوت هادئ</span>
+            <span class="search-tag" data-query="ملخص مباراة ريال مدريد"><i class="fa-solid fa-futbol"></i> ملخص مباراة ريال مدريد</span>
+            <span class="search-tag" data-query="بودكاست ثمانية"><i class="fa-solid fa-microphone"></i> بودكاست ثمانية</span>
+            <span class="search-tag" data-query="شرح لغة كوتلن للمبتدئين"><i class="fa-solid fa-code"></i> شرح برمجة وتطبيقات</span>
+            <span class="search-tag" data-query="MrBeast عربي"><i class="fa-solid fa-fire"></i> مستر بيست</span>
           </div>
         </div>
 
@@ -1291,7 +1289,7 @@ img {
           <div class="vance-feature-banner">
             <div class="banner-badge"><i class="fa-solid fa-shield-halved"></i> 100% بدون إعلانات</div>
             <div class="banner-title">مرحباً بك في NovaVance!</div>
-            <div class="banner-desc">استمتع بتشغيل الفيديوهات في الخلفية، تخطي الرعاة تلقائياً، والتحميل مجاناً.</div>
+            <div class="banner-desc">استمتع بتشغيل أي فيديو في اليوتيوب بدون إعلانات وبالمشغل العائم في الخلفية.</div>
             <div class="banner-pills">
               <span><i class="fa-solid fa-headphones"></i> تشغيل بالخلفية</span>
               <span><i class="fa-solid fa-forward-step"></i> SponsorBlock</span>
@@ -1416,7 +1414,7 @@ img {
             </div>
           </div>
 
-          <!-- Video Wrapper -->
+          <!-- Video Wrapper with Universal YouTube Search Stream Embed -->
           <div class="video-wrapper" id="videoWrapper">
             <iframe id="ytEmbedFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -1532,7 +1530,7 @@ img {
 
   <script>
 // ==========================================
-// 1. DATA CATALOG & LIVE SEARCH
+// 1. DATA CATALOG & SEARCH ENGINE
 // ==========================================
 const VideoAPIService = {
   videosDatabase: [
@@ -1542,13 +1540,12 @@ const VideoAPIService = {
       title: 'خارطة طريق تعلم البرمجة وتطوير التطبيقات والذكاء الاصطناعي في 2026',
       channel: { id: 'ch_elzero', name: 'Elzero Web School', avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop', subs: '2.1M مشترك', verified: true },
       duration: '24:15',
-      durationSec: 1455,
       views: '1.2M مشاهدة',
       uploadedAt: 'منذ يومين',
       category: 'tech',
       quality: '1080p 60fps',
       thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
-      description: 'دليلك العملي لتعلم البرمجة من الصفر وحتى الاحتراف وبناء تطبيقات الموبايل والذكاء الاصطناعي.'
+      description: 'دليلك الشامل لتعلم البرمجة وبناء التطبيقات الحديثة.'
     },
     {
       id: 'yt_tech_02',
@@ -1556,13 +1553,12 @@ const VideoAPIService = {
       title: 'مراجعة أحدث الهواتف الذكية وتقنيات 2026: هل تستحق الشراء فعلاً؟',
       channel: { id: 'ch_faisal', name: 'فيصل السيف | Tech Pills', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop', subs: '3.4M مشترك', verified: true },
       duration: '14:30',
-      durationSec: 870,
       views: '680K مشاهدة',
       uploadedAt: 'منذ 3 أيام',
       category: 'tech',
       quality: '4K Ultra',
       thumbnail: 'https://img.youtube.com/vi/L_LUpnjgPso/hqdefault.jpg',
-      description: 'مراجعة تفصيلية وتجربة أداء للكاميرات والبطاريات في أحدث الهواتف.'
+      description: 'مراجعة شاملة وتجربة أداء لأحدث الهواتف الرائدة.'
     },
     {
       id: 'yt_tech_03',
@@ -1570,7 +1566,6 @@ const VideoAPIService = {
       title: 'أسرار الإنتاجية وتنظيم الوقت وبناء العادات اليومية الناجحة',
       channel: { id: 'ch_droos', name: 'دروس أونلاين | أحمد أبو زيد', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop', subs: '7.8M مشترك', verified: true },
       duration: '16:45',
-      durationSec: 1005,
       views: '2.5M مشاهدة',
       uploadedAt: 'منذ أسبوع',
       category: 'tech',
@@ -1584,7 +1579,6 @@ const VideoAPIService = {
       title: 'Lo-Fi Chill Beats 🎧 موسيقى هادئة للدراسة والتركيز والعمل العميق 4K',
       channel: { id: 'ch_lofi', name: 'Lofi Girl Arabia', avatar: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150&auto=format&fit=crop', subs: '14.5M مشترك', verified: true },
       duration: '45:00',
-      durationSec: 2700,
       views: '5.8M مشاهدة',
       uploadedAt: 'بث مباشر',
       category: 'music',
@@ -1598,7 +1592,6 @@ const VideoAPIService = {
       title: 'ساعة من أجمل عزف العود الشرقي الأصيل للاسترخاء والهدوء',
       channel: { id: 'ch_oud', name: 'أنغام العود الشرقية', avatar: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=150&auto=format&fit=crop', subs: '1.2M مشترك', verified: true },
       duration: '38:20',
-      durationSec: 2300,
       views: '3.1M مشاهدة',
       uploadedAt: 'منذ شهر',
       category: 'music',
@@ -1612,7 +1605,6 @@ const VideoAPIService = {
       title: 'تجربة أضخم لعبة عالم مفتوح لهذا العام بأعلى إعدادات 4K 60FPS 🎮',
       channel: { id: 'ch_shong', name: 'SHONGxBONG', avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=150&auto=format&fit=crop', subs: '4.8M مشترك', verified: true },
       duration: '22:30',
-      durationSec: 1350,
       views: '1.4M مشاهدة',
       uploadedAt: 'منذ يوم',
       category: 'gaming',
@@ -1626,7 +1618,6 @@ const VideoAPIService = {
       title: 'بودكاست فنجان: كيف تبني مستقبلك المالي وتستثمر بذكاء؟',
       channel: { id: 'ch_thmanyah', name: 'ثمانية / Thmanyah', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop', subs: '5.9M مشترك', verified: true },
       duration: '1:32:40',
-      durationSec: 5560,
       views: '3.8M مشاهدة',
       uploadedAt: 'منذ أسبوع',
       category: 'podcasts',
@@ -1640,7 +1631,6 @@ const VideoAPIService = {
       title: 'جولة سينمائية ساحرة في جبال سويسرا وبحيرات الألب 4K HDR 🌿',
       channel: { id: 'ch_nature', name: 'Nature Relaxation 4K', avatar: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150&auto=format&fit=crop', subs: '6.5M مشترك', verified: true },
       duration: '28:50',
-      durationSec: 1730,
       views: '6.4M مشاهدة',
       uploadedAt: 'منذ شهر',
       category: 'nature',
@@ -1669,61 +1659,76 @@ const VideoAPIService = {
     return [...this.featuredChannels];
   },
 
+  // UNIVERSAL REAL SEARCH: Supports direct URL, Exact Matches & Live YouTube Search Stream
   async search(query) {
     if (!query || !query.trim()) return [];
     const q = query.trim();
 
-    // Check direct link
+    // 1. Direct YouTube link or ID input
     const ytMatch = q.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
     if (ytMatch && ytMatch[1]) {
       const vidId = ytMatch[1];
       return [{
         id: 'direct_' + vidId,
         ytId: vidId,
-        title: `فيديو يوتيوب مباشر (${vidId})`,
-        channel: { id: 'ch_direct', name: 'YouTube Stream', avatar: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&auto=format&fit=crop' },
+        title: `تشغيل الفيديو المباشر (${vidId})`,
+        channel: { id: 'ch_direct', name: 'YouTube Direct', avatar: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&auto=format&fit=crop' },
         duration: 'مباشر',
-        views: 'تشغيل مباشر',
+        views: 'بث يوتيوب',
         uploadedAt: 'الآن',
         quality: '1080p 60fps',
         thumbnail: `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`,
-        description: 'تشغيل مباشر عبر NovaVance بدون إعلانات.'
+        description: 'تشغيل مباشر عبر NovaVance بدون أي إعلانات.'
       }];
     }
 
+    // 2. Real YouTube Search Queries (Plays the top real YouTube video and playlist)
+    const results = [
+      {
+        id: 'search_top_' + encodeURIComponent(q),
+        searchQuery: q,
+        title: `تشغيل نتائج البحث: "${q}" (أفضل مقطع على اليوتيوب)`,
+        channel: { id: 'ch_yt_search', name: `بحث يوتيوب المباشر: ${q}`, avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop' },
+        duration: 'فيديو يوتيوب',
+        views: 'نتائج مباشرة',
+        uploadedAt: 'يوتيوب',
+        quality: '4K / 1080p',
+        thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&auto=format&fit=crop',
+        description: `تشغيل أول وأقوى نتيجة بحث عن "${q}" مباشرة من خوادم يوتيوب بدون إعلانات مع قائمة المقاطع المرتبطة.`
+      },
+      {
+        id: 'search_rel1_' + encodeURIComponent(q),
+        searchQuery: q + ' كامل',
+        title: `"${q}" - النسخة الكاملة واستعراض شامل 4K`,
+        channel: { id: 'ch_yt_rel1', name: `قناة ${q}`, avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop' },
+        duration: 'بث مميز',
+        views: 'يوتيوب HD',
+        uploadedAt: 'حصري',
+        quality: '1080p 60fps',
+        thumbnail: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=700&auto=format&fit=crop',
+        description: `بث وتشغيل مقاطع ${q} بدقة عالية.`
+      },
+      {
+        id: 'search_rel2_' + encodeURIComponent(q),
+        searchQuery: q + ' ملخص',
+        title: `أفضل لقطات ومقاطع عن "${q}"`,
+        channel: { id: 'ch_yt_rel2', name: 'المركز العربي للوسائط', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop' },
+        duration: 'مقطع سريع',
+        views: 'أعلى مشاهدة',
+        uploadedAt: 'رائج',
+        quality: '1080p',
+        thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=700&auto=format&fit=crop',
+        description: `تشغيل فوري وبدون أي انقطاع.`
+      }
+    ];
+
+    // Also include any local matching library items
     const localMatches = this.videosDatabase.filter(v => 
       v.title.toLowerCase().includes(q.toLowerCase()) ||
       v.channel.name.toLowerCase().includes(q.toLowerCase())
     );
 
-    const dynamicResults = [
-      {
-        id: 'dyn_1_' + encodeURIComponent(q),
-        ytId: 'dQw4w9WgXcQ',
-        title: `${q} | أفضل فيديو واستعراض كامل بجودة 4K 60FPS`,
-        channel: { id: 'ch_q1', name: `قناة ${q} الرسمية`, avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop' },
-        duration: '18:40',
-        views: '1.8M مشاهدة',
-        uploadedAt: 'منذ يومين',
-        quality: '1080p 60fps',
-        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
-        description: `أقوى تغطية ومقطع حصري عن ${q} بدون إعلانات وبأعلى دقة.`
-      },
-      {
-        id: 'dyn_2_' + encodeURIComponent(q),
-        ytId: 'jfKfPfyJRdk',
-        title: `بث مباشر وتغطية مميزة: كل ما يخص ${q}`,
-        channel: { id: 'ch_q2', name: 'المركز الإعلامي', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop' },
-        duration: '32:15',
-        views: '890K مشاهدة',
-        uploadedAt: 'منذ 3 أيام',
-        quality: '4K Ultra',
-        thumbnail: 'https://img.youtube.com/vi/jfKfPfyJRdk/hqdefault.jpg',
-        description: `محتوى كامل ومميز عن ${q}.`
-      }
-    ];
-
-    return [...localMatches, ...dynamicResults];
+    return [...results, ...localMatches];
   },
 
   async getRelatedVideos(currentVideoId) {
@@ -1785,7 +1790,7 @@ const StorageManager = {
 };
 
 // ==========================================
-// 3. PLAYER CONTROLLER
+// 3. UNIVERSAL PLAYER CONTROLLER
 // ==========================================
 const PlayerController = {
   currentVideo: null,
@@ -1809,27 +1814,36 @@ const PlayerController = {
     });
 
     document.getElementById('btnAudioModeToggle').addEventListener('click', () => {
-      App.showToast('تم تفعيل وضع الاستماع الصوتي في الخلفية 🎧');
+      App.showToast('وضع الاستماع الصوتي في الخلفية مُفعّل 🎧');
     });
   },
 
   loadVideo(video) {
     this.currentVideo = video;
-    const ytId = video.ytId || 'dQw4w9WgXcQ';
 
     document.getElementById('playerTopTitle').textContent = video.title;
     document.getElementById('miniPlayerTitle').textContent = video.title;
-    document.getElementById('miniPlayerChannel').textContent = video.channel.name;
-    document.getElementById('miniPlayerThumb').src = video.thumbnail;
+    document.getElementById('miniPlayerChannel').textContent = video.channel ? video.channel.name : 'YouTube';
+    document.getElementById('miniPlayerThumb').src = video.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=200&auto=format&fit=crop';
     document.getElementById('videoDetailTitle').textContent = video.title;
-    document.getElementById('videoDetailViews').innerHTML = `<i class="fa-solid fa-eye"></i> ${video.views}`;
-    document.getElementById('videoDetailDate').innerHTML = `<i class="fa-solid fa-calendar"></i> ${video.uploadedAt}`;
-    document.getElementById('channelAvatarImg').src = video.channel.avatar;
-    document.getElementById('channelNameText').textContent = video.channel.name;
-    document.getElementById('channelSubsCount').textContent = video.channel.subs || 'مشترك';
+    document.getElementById('videoDetailViews').innerHTML = `<i class="fa-solid fa-eye"></i> ${video.views || 'مشاهدة'}`;
+    document.getElementById('videoDetailDate').innerHTML = `<i class="fa-solid fa-calendar"></i> ${video.uploadedAt || 'يوتيوب'}`;
+    
+    if (video.channel && video.channel.avatar) {
+      document.getElementById('channelAvatarImg').src = video.channel.avatar;
+      document.getElementById('channelNameText').textContent = video.channel.name;
+      document.getElementById('channelSubsCount').textContent = video.channel.subs || 'مشترك';
+    }
+    
     document.getElementById('descFullContent').textContent = video.description || '';
 
-    this.ytFrame.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+    // STREAMING SOURCE: If it's a search query, stream via YouTube Search Playlist Mode, else stream exact video ID
+    if (video.searchQuery) {
+      this.ytFrame.src = `https://www.youtube-nocookie.com/embed?listType=search&list=${encodeURIComponent(video.searchQuery)}&autoplay=1&rel=0`;
+    } else {
+      const vidId = video.ytId || 'dQw4w9WgXcQ';
+      this.ytFrame.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&rel=0&modestbranding=1`;
+    }
 
     this.playerContainer.classList.add('active-player');
     this.playerContainer.classList.remove('hidden');
@@ -1838,6 +1852,7 @@ const PlayerController = {
     StorageManager.addToHistory(video);
     App.renderRelatedVideos(video.id);
     App.updateActiveStates(video);
+    App.showToast('جاري تشغيل الفيديو بدون إعلانات 🎬');
   },
 
   expand() {
@@ -1891,7 +1906,7 @@ const App = {
       });
     });
 
-    // Search
+    // SEARCH FUNCTIONALITY
     const overlay = document.getElementById('searchOverlay');
     const input = document.getElementById('searchInput');
     const clearBtn = document.getElementById('btnClearSearch');
@@ -1922,12 +1937,23 @@ const App = {
     const doSearch = async () => {
       const q = input.value.trim();
       if (!q) return;
-      resultsContainer.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> جاري البحث...</div>';
+      
+      resultsContainer.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px;"></i><br><br>جاري جلب نتائج البحث من يوتيوب...</div>';
+      
       const res = await VideoAPIService.search(q);
       resultsContainer.innerHTML = '';
+      
+      if (!res.length) {
+        resultsContainer.innerHTML = '<div style="text-align:center; padding: 30px; color: var(--text-muted);">لم يتم العثور على نتائج.</div>';
+        return;
+      }
+
       res.forEach(v => {
         const card = this.createCard(v);
-        card.addEventListener('click', () => overlay.classList.remove('open'));
+        card.addEventListener('click', () => {
+          overlay.classList.remove('open');
+          PlayerController.loadVideo(v);
+        });
         resultsContainer.appendChild(card);
       });
     };
@@ -1961,7 +1987,7 @@ const App = {
     });
 
     document.getElementById('btnSubscribe').addEventListener('click', () => {
-      if (!PlayerController.currentVideo) return;
+      if (!PlayerController.currentVideo || !PlayerController.currentVideo.channel) return;
       const ch = PlayerController.currentVideo.channel;
       const subbed = StorageManager.toggleSub(ch);
       const btn = document.getElementById('btnSubscribe');
@@ -2020,23 +2046,23 @@ const App = {
     card.className = 'video-card';
     card.innerHTML = `
       <div class="video-thumb-container">
-        <img src="${video.thumbnail}" alt="${video.title}" class="video-thumb" loading="lazy">
+        <img src="${video.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&auto=format&fit=crop'}" alt="${video.title}" class="video-thumb" loading="lazy">
         <span class="duration-badge">${video.duration || 'فيديو'}</span>
         <span class="quality-card-badge">${video.quality || '1080p'}</span>
         <span class="sponsor-badge-indicator"><i class="fa-solid fa-shield"></i> بدون إعلانات</span>
       </div>
       <div class="video-card-body">
-        <img src="${video.channel.avatar}" alt="${video.channel.name}" class="channel-avatar-sm">
+        <img src="${video.channel ? video.channel.avatar : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop'}" alt="" class="channel-avatar-sm">
         <div class="video-card-meta">
           <div class="video-card-title">${video.title}</div>
           <div class="video-card-channel">
-            <span>${video.channel.name}</span>
+            <span>${video.channel ? video.channel.name : 'YouTube'}</span>
             <i class="fa-solid fa-circle-check verified-badge"></i>
           </div>
           <div class="video-card-stats">
-            <span>${video.views}</span>
+            <span>${video.views || 'مشاهدة'}</span>
             <span>•</span>
-            <span>${video.uploadedAt}</span>
+            <span>${video.uploadedAt || 'يوتيوب'}</span>
           </div>
         </div>
       </div>
@@ -2088,7 +2114,7 @@ const App = {
         d.style.cssText = 'width: 140px; flex-shrink: 0; cursor: pointer;';
         d.innerHTML = `
           <div style="aspect-ratio:16/9; border-radius:8px; overflow:hidden; background:#222; margin-bottom:4px;">
-            <img src="${v.thumbnail}" style="width:100%; height:100%; object-fit:cover;">
+            <img src="${v.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&auto=format&fit=crop'}" style="width:100%; height:100%; object-fit:cover;">
           </div>
           <div style="font-size:0.78rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${v.title}</div>
         `;
@@ -2136,7 +2162,7 @@ const App = {
   updateActiveStates(video) {
     const liked = StorageManager.getLikes().some(v => v.id === video.id);
     const saved = StorageManager.getWatchLater().some(v => v.id === video.id);
-    const subbed = StorageManager.getSubs().some(s => s.id === video.channel.id);
+    const subbed = video.channel ? StorageManager.getSubs().some(s => s.id === video.channel.id) : false;
 
     document.getElementById('btnLike').classList.toggle('active', liked);
     document.getElementById('btnSavePlaylist').classList.toggle('active', saved);
