@@ -1030,6 +1030,76 @@ img {
   aspect-ratio: 16 / 9;
   background-color: #000;
   z-index: 10;
+  position: relative;
+}
+
+/* Embed Blocked Fallback Layer */
+.embed-blocked-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #18181c 0%, #0d0d10 100%);
+  z-index: 15;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 16px;
+  text-align: center;
+  gap: 8px;
+}
+
+.embed-blocked-layer.active {
+  display: flex;
+}
+
+.blocked-icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.12);
+  border: 1px solid rgba(255, 0, 0, 0.35);
+  color: var(--yt-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.blocked-title-text {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.blocked-desc-text {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  max-width: 320px;
+  line-height: 1.45;
+}
+
+.btn-play-restricted-direct {
+  margin-top: 6px;
+  padding: 9px 20px;
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: #ffffff !important;
+  border-radius: 24px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.4);
+  transition: transform 0.15s;
+}
+
+.btn-play-restricted-direct:hover {
+  transform: scale(1.03);
 }
 
 .player-dock-layer.hidden {
@@ -1650,6 +1720,21 @@ img {
           <!-- Video Stream Frame -->
           <div class="video-stream-iframe-box">
             <iframe id="mainYtPlayerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="embed-blocked-layer" id="embedBlockedFallbackLayer">
+              <div class="blocked-icon-circle"><i class="fa-solid fa-lock"></i></div>
+              <div class="blocked-title-text" id="blockedVideoTitle">محتوى محمي بحقوق البث الحصري</div>
+              <div class="blocked-desc-text" id="blockedVideoDesc">قامت القناة بتعطيل تشغيل هذا المقطع داخل التطبيقات الخارجية وفق حقوق البث التلفزيوني. يمكنك المشاهدة الفورية مباشرة بضغطة زر:</div>
+              <div style="display:flex; flex-direction:column; gap:8px; width:100%; max-width:280px; align-items:center;">
+                <a href="#" id="btnOpenBlockedInYt" target="_blank" class="btn-play-restricted-direct" style="width:100%; justify-content:center;">
+                  <i class="fa-brands fa-youtube" style="font-size:18px;"></i>
+                  <span>مشاهدة الفيديو على YouTube</span>
+                </a>
+                <button type="button" id="btnTryAltEmbedStream" class="category-chip-pill" style="width:100%; justify-content:center; padding:8px 14px; font-size:0.76rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:var(--accent-cyan); cursor:pointer;">
+                  <i class="fa-solid fa-server"></i>
+                  <span>تجربة خادم البث المباشر البديل</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Video Details Card -->
@@ -2313,36 +2398,73 @@ const PlayerEngine = {
         ChannelViewer.open(this.currentVideo.channel);
       }
     });
+
+    // Try Alternative Player Button in Blocked Overlay
+    const btnAlt = document.getElementById('btnTryAltEmbedStream');
+    if (btnAlt) {
+      btnAlt.addEventListener('click', () => {
+        if (!this.currentVideo || !this.currentVideo.ytId) return;
+        App.showToast('جاري تجربة خادم البث المباشر البديل...');
+        this.hideBlockedEmbedOverlay();
+        this.iframe.src = `https://invidious.f5.si/embed/${this.currentVideo.ytId}?autoplay=1`;
+      });
+    }
   },
 
   play(video) {
     this.currentVideo = video;
+    this.hideBlockedEmbedOverlay();
+
+    const channelName = video.channel ? (typeof video.channel === 'string' ? video.channel : video.channel.name) : (video.author || 'قناة يوتيوب');
+    const channelAvatar = (video.channel && video.channel.avatar) || 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
+    const channelSubs = (video.channel && video.channel.subs) || 'عرض محتوى القناة الكامل';
 
     document.getElementById('fullPlayerTopTitle').textContent = video.title;
     document.getElementById('miniPlayerTitleText').textContent = video.title;
-    document.getElementById('miniPlayerChannelText').textContent = video.channel ? video.channel.name : 'لوكشا تيوب';
+    document.getElementById('miniPlayerChannelText').textContent = channelName;
     document.getElementById('miniPlayerThumbImg').src = video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`;
     document.getElementById('fullPlayerVideoTitle').textContent = video.title;
     document.getElementById('fullPlayerViewsCount').textContent = video.views || 'مشاهدة';
     document.getElementById('fullPlayerDateText').textContent = video.uploadedAt || 'مؤخراً';
 
-    if (video.channel) {
-      document.getElementById('fullPlayerChannelAvatar').src = video.channel.avatar || 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
-      document.getElementById('fullPlayerChannelName').textContent = video.channel.name;
-      document.getElementById('fullPlayerSubsCount').textContent = video.channel.subs || 'عرض محتوى القناة الكامل';
-    }
+    document.getElementById('fullPlayerChannelAvatar').src = channelAvatar;
+    document.getElementById('fullPlayerChannelName').textContent = channelName;
+    document.getElementById('fullPlayerSubsCount').textContent = channelSubs;
 
     const vidId = video.ytId || 'LdJbP0NbFRw';
-    this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&hl=ar&gl=EG&cc_lang_pref=ar`;
 
     this.container.classList.add('active-player');
     this.container.classList.remove('hidden');
     this.expand();
 
+    // Check if video has restricted embedding rights (e.g. beIN SPORTS MENA)
+    if (PreviewManager.isVideoRestricted(video)) {
+      this.iframe.src = '';
+      this.showBlockedEmbedOverlay(video);
+    } else {
+      this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&hl=ar&gl=EG&cc_lang_pref=ar`;
+    }
+
     LocalStorageStore.addToHistory(video);
     App.renderRelatedVideos(video.id || video.ytId);
     App.updatePlayerStates(video);
-    App.showToast('جاري التشغيل بدون إعلانات 🎬');
+  },
+
+  showBlockedEmbedOverlay(video) {
+    const layer = document.getElementById('embedBlockedFallbackLayer');
+    const targetVideo = video || this.currentVideo;
+    if (!layer || !targetVideo) return;
+
+    const chName = targetVideo.channel ? (typeof targetVideo.channel === 'string' ? targetVideo.channel : targetVideo.channel.name) : (targetVideo.author || 'الناشر الرسمي');
+    document.getElementById('blockedVideoTitle').textContent = `🔒 محتوى محمي بحقوق البث (${chName})`;
+    document.getElementById('blockedVideoDesc').textContent = `قامت القناة (${chName}) بحصر تشغيل هذا الفيديو على يوتيوب مباشرة وحظر المشغلات المضمنة. يمكنك تشغيله فوراً بضغطة زر:`;
+    document.getElementById('btnOpenBlockedInYt').href = `https://www.youtube.com/watch?v=${targetVideo.ytId}`;
+    layer.classList.add('active');
+  },
+
+  hideBlockedEmbedOverlay() {
+    const layer = document.getElementById('embedBlockedFallbackLayer');
+    if (layer) layer.classList.remove('active');
   },
 
   expand() {
@@ -2357,6 +2479,7 @@ const PlayerEngine = {
 
   close() {
     this.iframe.src = '';
+    this.hideBlockedEmbedOverlay();
     this.container.classList.remove('active-player');
     this.container.classList.add('hidden');
     this.currentVideo = null;
@@ -2369,6 +2492,34 @@ const PreviewManager = {
   hoverTimer: null,
   inViewTimer: null,
   inViewObserver: null,
+
+  isVideoRestricted(video) {
+    if (!video) return false;
+    let chName = '';
+    if (typeof video.channel === 'string') {
+      chName = video.channel;
+    } else if (video.channel && typeof video.channel.name === 'string') {
+      chName = video.channel.name;
+    } else if (typeof video.author === 'string') {
+      chName = video.author;
+    }
+
+    const title = (video.title || '').toLowerCase();
+    const chLower = (chName || '').toLowerCase();
+
+    // Known broadcasters and sports rights holders that block third-party web embeds
+    const restrictedKeywords = [
+      'bein', 'be in', 'بي ان', 'بي إن', 'بين سبورت', 'sports mena',
+      'uefa', 'fifa', 'champions league', 'دوري أبطال',
+      'laliga', 'premier league', 'الدوري الإنجليزي', 'الدوري الإسباني', 'الدوري الإيطالي',
+      'f1', 'formula 1', 'formula', 'فورمولا', 'باكو', 'baku',
+      'ssc', 'alkass', 'الكاس', 'أون تايم', 'ontime', 'on time',
+      'dazn', 'sky sports', 'nba', 'wwe', 'ufc', 'afc', 'كأس آسيا', 'كأس العالم',
+      'ملخص مباراة', 'أهداف مباراة', 'صراع مستمر'
+    ];
+
+    return restrictedKeywords.some(kw => chLower.includes(kw) || title.includes(kw));
+  },
 
   init() {
     const scrollContainer = document.querySelector('.views-tab-content-container');
@@ -2393,6 +2544,21 @@ const PreviewManager = {
         threshold: 0.8
       });
     }
+
+    // Global PostMessage listener for YouTube embed errors (Error 101/150: Embed blocked by broadcaster)
+    window.addEventListener('message', (event) => {
+      try {
+        const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (data && (data.event === 'onError' || data.info === 150 || data.info === 101 || data.info === 100 || data.info === 2 || data.info === 5)) {
+          if (PreviewManager.activeCard) {
+            PreviewManager.stopPreview(PreviewManager.activeCard);
+          }
+          if (PlayerEngine.currentVideo) {
+            PlayerEngine.showBlockedEmbedOverlay(PlayerEngine.currentVideo);
+          }
+        }
+      } catch (e) {}
+    });
   },
 
   attach(card, video) {
@@ -2405,7 +2571,7 @@ const PreviewManager = {
         if (!PlayerEngine.currentVideo && !ChannelViewer.isOpen) {
           this.startPreview(card);
         }
-      }, 500);
+      }, 450);
     });
 
     card.addEventListener('mouseleave', () => {
@@ -2422,6 +2588,18 @@ const PreviewManager = {
   startPreview(card) {
     if (!card || !card._videoData) return;
     if (this.activeCard === card) return;
+
+    // 100% Protection: Check if video is restricted by broadcaster
+    if (this.isVideoRestricted(card._videoData)) {
+      // NEVER insert iframe for restricted broadcasts to prevent "الفيديو غير متاح" black error box
+      const pill = card.querySelector('.preview-badge-pill');
+      if (pill) {
+        pill.innerHTML = '<i class="fa-solid fa-lock" style="color:#ffb703;"></i> محتوى محمي بالحقوق';
+        pill.style.display = 'flex';
+      }
+      return;
+    }
+
     this.stopAll();
 
     const ytId = card._videoData.ytId;
@@ -2442,6 +2620,11 @@ const PreviewManager = {
     if (overlay) {
       overlay.classList.remove('active');
       overlay.innerHTML = '';
+    }
+    const pill = card.querySelector('.preview-badge-pill');
+    if (pill) {
+      pill.style.display = '';
+      pill.innerHTML = '<i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي';
     }
     if (this.activeCard === card) {
       this.activeCard = null;
@@ -2800,14 +2983,28 @@ const App = {
     const card = document.createElement('div');
     card.className = 'yt-video-card-item';
     card.setAttribute('data-ytid', video.ytId);
-    const channelName = video.channel ? video.channel.name : 'قناة يوتيوب';
-    const channelAvatar = video.channel ? (video.channel.avatar || 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj') : 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
+
+    let channelName = 'قناة يوتيوب';
+    if (typeof video.channel === 'string') {
+      channelName = video.channel;
+    } else if (video.channel && video.channel.name) {
+      channelName = video.channel.name;
+    } else if (video.author) {
+      channelName = video.author;
+    }
+
+    let channelAvatar = 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
+    if (video.channel && video.channel.avatar) {
+      channelAvatar = video.channel.avatar;
+    }
+
+    const isRestricted = PreviewManager.isVideoRestricted(video);
     
     card.innerHTML = `
       <div class="yt-thumb-container">
         <img src="${video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`}" alt="${video.title}" class="yt-thumb-img" loading="lazy">
         <div class="inline-preview-overlay"></div>
-        <div class="preview-badge-pill"><i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي</div>
+        <div class="preview-badge-pill">${isRestricted ? '<i class="fa-solid fa-lock" style="color:#ffb703;"></i> محتوى محمي' : '<i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي'}</div>
         <span class="yt-duration-badge">${video.duration || 'فيديو'}</span>
       </div>
       <div class="yt-video-info-row">
