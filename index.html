@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>NovaVance - مشغل اليوتيوب المستقل الخارق</title>
+  <title>لوكشا تيوب | LokshaTube - مشغل الوسائط المستقل بدون إعلانات</title>
   
   <!-- PWA & Mobile Meta Tags -->
-  <meta name="theme-color" content="#050508">
+  <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="NovaVance">
+  <meta name="apple-mobile-web-app-title" content="LokshaTube">
+  <meta name="description" content="لوكشا تيوب - تطبيق تشغيل فيديوهات يوتيوب بدون أي إعلانات مع تشغيل في الخلفية ومشغل عائم.">
   
   <!-- Google Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,34 +20,36 @@
   
   <style>
 :root {
-  --bg-black: #000000;
-  --bg-surface-1: #0a0a0f;
-  --bg-surface-2: #12131a;
-  --bg-surface-3: #1a1b26;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-active: rgba(255, 0, 51, 0.5);
+  --bg-pure-black: #000000;
+  --bg-card-1: #0c0d14;
+  --bg-card-2: #131520;
+  --bg-card-3: #1a1c2b;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-active: rgba(255, 0, 51, 0.4);
 
   --brand-red: #ff0033;
-  --brand-red-hover: #ff2255;
-  --brand-red-glow: rgba(255, 0, 51, 0.4);
+  --brand-red-light: #ff2a55;
+  --brand-red-glow: rgba(255, 0, 51, 0.35);
   --accent-cyan: #00e5ff;
   --accent-purple: #9d4edd;
   --accent-green: #00e676;
+  --accent-gold: #ffb703;
 
-  --text-main: #f8f9fa;
-  --text-secondary: #a0a5b8;
-  --text-muted: #60657b;
+  --text-primary: #ffffff;
+  --text-secondary: #9ea3b8;
+  --text-muted: #5e6378;
 
-  --font-arabic: 'Cairo', system-ui, sans-serif;
-  --font-english: 'Outfit', system-ui, sans-serif;
+  --font-arabic: 'Cairo', system-ui, -apple-system, sans-serif;
+  --font-english: 'Outfit', system-ui, -apple-system, sans-serif;
 
   --app-max-width: 480px;
-  --header-height: 56px;
-  --bottom-nav-height: 60px;
-  --mini-player-height: 64px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --header-height: 60px;
+  --bottom-nav-height: 62px;
+  --mini-player-height: 66px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
   --radius-full: 9999px;
 }
 
@@ -61,10 +64,10 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #000000;
-  color: var(--text-main);
+  background-color: var(--bg-pure-black);
+  color: var(--text-primary);
   font-family: var(--font-arabic);
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.45;
   overflow: hidden;
   direction: rtl;
@@ -93,13 +96,14 @@ img {
   object-fit: cover;
 }
 
+/* Main Layout Wrapper */
 .app-layout {
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 20%, #151124 0%, #06060a 70%, #000000 100%);
+  background: radial-gradient(circle at 50% 15%, #181128 0%, #08080c 60%, #000000 100%);
   position: relative;
   overflow: hidden;
 }
@@ -109,12 +113,12 @@ img {
   max-width: var(--app-max-width);
   height: 100%;
   max-height: 100vh;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 0 70px rgba(0, 0, 0, 0.95);
 }
 
 @media (min-width: 600px) {
@@ -125,127 +129,147 @@ img {
   }
 }
 
-/* Header */
+/* ==========================================================================
+   ORGANIZED HEADER
+   ========================================================================== */
 .app-header {
-  background: rgba(10, 10, 15, 0.96);
-  backdrop-filter: blur(16px);
+  background: rgba(10, 11, 16, 0.96);
+  backdrop-filter: blur(18px);
   position: sticky;
   top: 0;
   z-index: 40;
   border-bottom: 1px solid var(--border-subtle);
-  padding: 8px 12px 6px 12px;
+  padding: 8px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
-.header-main {
+.header-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.brand-logo {
+.brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
 }
 
-.logo-icon {
-  width: 34px;
-  height: 34px;
-  background: linear-gradient(135deg, var(--brand-red) 0%, #a00028 100%);
-  border-radius: 10px;
+.brand-icon-box {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #ff0033 0%, #a80026 100%);
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-size: 16px;
-  box-shadow: 0 4px 12px var(--brand-red-glow);
+  box-shadow: 0 4px 14px var(--brand-red-glow);
 }
 
-.logo-text {
-  font-family: var(--font-english);
-  font-size: 1.3rem;
-  font-weight: 800;
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-main-title {
+  font-size: 1.15rem;
+  font-weight: 900;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.2;
 }
 
-.logo-text span {
+.brand-main-title span {
   color: var(--brand-red);
 }
 
-.badge-pro {
-  background: linear-gradient(90deg, #ff0055, #ff5500);
+.brand-badge {
+  background: linear-gradient(90deg, #ff0055, #ff6600);
   font-family: var(--font-english);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 800;
   padding: 2px 6px;
   border-radius: 6px;
   color: #fff;
+  letter-spacing: 0.5px;
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.icon-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-full);
-  color: var(--text-main);
-  font-size: 16px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.icon-btn:hover, .icon-btn:active {
-  background-color: var(--bg-surface-3);
-  color: var(--brand-red);
-}
-
-/* Category Chips */
-.categories-bar {
+.header-actions-group {
   display: flex;
   align-items: center;
   gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-bottom: 2px;
 }
 
-.categories-bar::-webkit-scrollbar {
+.action-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-card-1);
+  color: var(--text-primary);
+  font-size: 15px;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s;
+}
+
+.action-icon-btn:hover, .action-icon-btn:active {
+  background-color: var(--bg-card-3);
+  color: var(--brand-red);
+  border-color: var(--border-active);
+}
+
+/* Organized Categories Row */
+.categories-scroll-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 0;
+}
+
+.categories-scroll-row::-webkit-scrollbar {
   display: none;
 }
 
-.chip {
+.cat-pill {
   padding: 6px 14px;
-  background-color: var(--bg-surface-2);
+  background-color: var(--bg-card-2);
   color: var(--text-secondary);
   border-radius: var(--radius-full);
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   white-space: nowrap;
   transition: all 0.2s;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.chip.active {
-  background: linear-gradient(135deg, var(--brand-red) 0%, #c4002e 100%);
+.cat-pill.active {
+  background: linear-gradient(135deg, var(--brand-red) 0%, #c40026 100%);
   color: #ffffff;
-  box-shadow: 0 3px 10px var(--brand-red-glow);
+  border-color: transparent;
+  box-shadow: 0 3px 12px var(--brand-red-glow);
 }
 
-/* SEARCH OVERLAY */
-.search-overlay {
+/* ==========================================================================
+   ORGANIZED SEARCH OVERLAY
+   ========================================================================== */
+.search-fullscreen-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
   z-index: 70;
   display: flex;
   flex-direction: column;
@@ -255,35 +279,35 @@ img {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.search-overlay.open {
+.search-fullscreen-overlay.open {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
-.search-header {
-  padding: 10px 12px;
+.search-bar-header {
+  padding: 12px 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: var(--bg-surface-1);
+  gap: 10px;
+  background-color: var(--bg-card-1);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.search-input-wrapper {
+.search-input-box {
   flex: 1;
   display: flex;
   align-items: center;
-  background-color: var(--bg-surface-2);
+  background-color: var(--bg-card-2);
   border-radius: var(--radius-full);
-  padding: 0 12px;
-  gap: 8px;
+  padding: 0 14px;
+  gap: 10px;
   border: 1px solid var(--border-subtle);
 }
 
-.search-input-wrapper input {
+.search-input-box input {
   flex: 1;
-  height: 40px;
+  height: 42px;
   background: none;
   border: none;
   outline: none;
@@ -291,7 +315,11 @@ img {
   color: #ffffff;
 }
 
-.clear-btn {
+.search-input-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.btn-clear-search {
   display: none;
   width: 26px;
   height: 26px;
@@ -299,268 +327,133 @@ img {
   color: var(--text-muted);
 }
 
-.btn-search-exec {
-  width: 38px;
-  height: 38px;
+.btn-trigger-search {
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
   background: var(--brand-red);
   color: #fff;
   font-size: 15px;
-  box-shadow: 0 2px 8px var(--brand-red-glow);
+  box-shadow: 0 2px 10px var(--brand-red-glow);
 }
 
-.search-body {
+.search-content-area {
   flex: 1;
   overflow-y: auto;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-/* Quick Tags & Suggestions */
-.search-suggestions-container {
+.quick-search-tags-box {
+  background: var(--bg-card-1);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.quick-tags-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-secondary);
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tags-cloud-flex {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-.suggestions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.suggestion-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: var(--radius-md);
-  background: var(--bg-surface-1);
-  color: var(--text-main);
-  cursor: pointer;
-  font-size: 0.88rem;
-  transition: background 0.2s;
-}
-
-.suggestion-item:hover, .suggestion-item:active {
-  background: var(--bg-surface-3);
-  color: var(--brand-red);
-}
-
-.suggestion-item i {
-  color: var(--text-muted);
-  font-size: 13px;
-}
-
-.tags-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.search-tag {
-  padding: 6px 12px;
-  background-color: var(--bg-surface-2);
+.search-pill-tag {
+  padding: 7px 14px;
+  background-color: var(--bg-card-2);
   border-radius: var(--radius-full);
   font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: all 0.2s;
 }
 
-.search-tag:hover {
-  background-color: var(--bg-surface-3);
+.search-pill-tag:hover, .search-pill-tag:active {
+  background-color: var(--bg-card-3);
   color: #fff;
   border-color: var(--brand-red);
 }
 
-/* Tab Views Container */
-.views-container {
+/* ==========================================================================
+   ORGANIZED TAB VIEWS & FEEDS
+   ========================================================================== */
+.views-viewport {
   flex: 1;
   position: relative;
   overflow: hidden;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
 }
 
-.tab-view {
+.tab-pane {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 10px 12px calc(var(--bottom-nav-height) + var(--mini-player-height) + 12px) 12px;
+  padding: 12px 14px calc(var(--bottom-nav-height) + var(--mini-player-height) + 16px) 14px;
   display: none;
   flex-direction: column;
+  gap: 16px;
+}
+
+.tab-pane.active {
+  display: flex;
+}
+
+/* Section Header Titles */
+.section-headline {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 2px;
+}
+
+/* Channel Stories Row */
+.stories-channel-bar {
+  display: flex;
   gap: 14px;
-}
-
-.tab-view.active {
-  display: flex;
-}
-
-/* Video Card */
-.video-card {
-  background-color: var(--bg-surface-1);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-.video-card:active {
-  transform: scale(0.98);
-}
-
-.video-thumb-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background-color: var(--bg-surface-2);
-  overflow: hidden;
-}
-
-.video-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s;
-}
-
-.video-card:hover .video-thumb {
-  transform: scale(1.03);
-}
-
-.duration-badge {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(4px);
-  padding: 2px 6px;
-  border-radius: 6px;
-  font-family: var(--font-english);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.quality-card-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(0, 229, 255, 0.85);
-  color: #000;
-  padding: 2px 6px;
-  border-radius: 6px;
-  font-family: var(--font-english);
-  font-size: 0.65rem;
-  font-weight: 800;
-}
-
-.sponsor-badge-indicator {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(0, 230, 118, 0.9);
-  color: #000;
-  padding: 2px 7px;
-  border-radius: 6px;
-  font-size: 0.65rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.video-card-body {
-  padding: 10px 12px;
-  display: flex;
-  gap: 10px;
-}
-
-.channel-avatar-sm {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-}
-
-.video-card-meta {
-  flex: 1;
-  min-width: 0;
-}
-
-.video-card-title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 4px;
-}
-
-.video-card-channel {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.verified-badge {
-  color: var(--accent-cyan);
-  font-size: 11px;
-}
-
-.video-card-stats {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-/* Stories / Channels Row */
-.channel-stories-row {
-  display: flex;
-  gap: 12px;
   overflow-x: auto;
   scrollbar-width: none;
-  padding: 4px 0 10px 0;
+  padding: 2px 0 8px 0;
 }
 
-.channel-stories-row::-webkit-scrollbar {
+.stories-channel-bar::-webkit-scrollbar {
   display: none;
 }
 
-.channel-story-item {
+.story-channel-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   cursor: pointer;
   flex-shrink: 0;
-  width: 64px;
+  width: 66px;
 }
 
-.story-avatar-ring {
-  width: 54px;
-  height: 54px;
+.story-ring-wrapper {
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-full);
   padding: 2px;
   background: linear-gradient(135deg, var(--brand-red), var(--accent-purple));
@@ -569,15 +462,16 @@ img {
   justify-content: center;
 }
 
-.story-avatar-img {
+.story-channel-img {
   width: 100%;
   height: 100%;
   border-radius: var(--radius-full);
-  border: 2px solid var(--bg-black);
+  border: 2px solid var(--bg-pure-black);
 }
 
-.story-name {
+.story-channel-label {
   font-size: 0.72rem;
+  font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -587,9 +481,147 @@ img {
 }
 
 /* ==========================================================================
-   UNIVERSAL AMOLED FLOATING & EXPANDABLE PLAYER
+   ORGANIZED VIDEO CARD COMPONENT
    ========================================================================== */
-.player-container {
+.video-stream-card {
+  background-color: var(--bg-card-1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-stream-card:hover {
+  border-color: rgba(255, 0, 51, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.video-stream-card:active {
+  transform: scale(0.985);
+}
+
+.card-thumbnail-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--bg-card-2);
+  overflow: hidden;
+}
+
+.card-thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.video-stream-card:hover .card-thumbnail-img {
+  transform: scale(1.03);
+}
+
+.badge-video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-english);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-video-quality {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 229, 255, 0.9);
+  color: #000;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-family: var(--font-english);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.badge-adfree-shield {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 230, 118, 0.92);
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-details-row {
+  padding: 12px 14px;
+  display: flex;
+  gap: 12px;
+}
+
+.channel-avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.card-text-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-video-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.38;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.card-channel-name-row {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon-verified {
+  color: var(--accent-cyan);
+  font-size: 11px;
+}
+
+.card-views-time-row {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+/* ==========================================================================
+   AMOLED FLOATING MINI-PLAYER & FULLSCREEN EXPANDABLE MODAL
+   ========================================================================== */
+.player-host-container {
   position: absolute;
   bottom: var(--bottom-nav-height);
   left: 0;
@@ -598,54 +630,53 @@ img {
   transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
 }
 
-/* COLLAPSED STATE (MINI PLAYER) */
-.player-container.collapsed {
+/* COLLAPSED STATE (MINI BAR) */
+.player-host-container.collapsed {
   height: var(--mini-player-height);
-  background: rgba(14, 15, 22, 0.98);
+  background: rgba(12, 13, 20, 0.98);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid rgba(0,0,0,0.5);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.85);
 }
 
-.player-container.collapsed .full-player-content {
+.player-host-container.collapsed .expanded-player-sheet {
   display: none;
 }
 
-.player-container.collapsed .mini-player-bar {
+.player-host-container.collapsed .mini-player-strip {
   display: flex;
 }
 
-.player-container.collapsed .video-frame-wrapper {
+.player-host-container.collapsed .media-iframe-wrapper {
   position: absolute;
-  opacity: 0.01;
+  opacity: 0.001;
   pointer-events: none;
   width: 1px;
   height: 1px;
 }
 
-/* EXPANDED STATE (FULL PLAYER) */
-.player-container:not(.collapsed) {
+/* EXPANDED STATE (FULL VIEW) */
+.player-host-container:not(.collapsed) {
   top: 0;
   bottom: 0;
   height: 100%;
   z-index: 80;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
   overflow-y: auto;
 }
 
-.player-container:not(.collapsed) .mini-player-bar {
+.player-host-container:not(.collapsed) .mini-player-strip {
   display: none;
 }
 
-.player-container:not(.collapsed) .full-player-content {
+.player-host-container:not(.collapsed) .expanded-player-sheet {
   display: flex;
 }
 
-.player-container:not(.collapsed) .video-frame-wrapper {
+.player-host-container:not(.collapsed) .media-iframe-wrapper {
   position: sticky;
   top: 0;
   width: 100%;
@@ -654,43 +685,43 @@ img {
   z-index: 10;
 }
 
-.player-container.hidden {
+.player-host-container.hidden {
   display: none !important;
 }
 
-/* Mini Player Content */
-.mini-player-bar {
+/* Mini Player Bar */
+.mini-player-strip {
   width: 100%;
   height: 100%;
   display: none;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 12px;
   gap: 10px;
 }
 
-.mini-thumb {
-  width: 52px;
-  height: 38px;
-  border-radius: var(--radius-sm);
+.mini-thumb-box {
+  width: 54px;
+  height: 40px;
+  border-radius: var(--radius-xs);
   overflow: hidden;
   position: relative;
   flex-shrink: 0;
   cursor: pointer;
 }
 
-.mini-thumb img {
+.mini-thumb-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.mini-info {
+.mini-text-box {
   flex: 1;
   min-width: 0;
   cursor: pointer;
 }
 
-.mini-title {
+.mini-now-playing-title {
   font-size: 0.82rem;
   font-weight: 700;
   color: #fff;
@@ -699,36 +730,36 @@ img {
   text-overflow: ellipsis;
 }
 
-.mini-channel {
+.mini-now-playing-channel {
   font-size: 0.72rem;
   color: var(--brand-red);
 }
 
-.mini-controls {
+.mini-strip-actions {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-/* Full Player Body */
-.full-player-content {
+/* Expanded Player Sheet */
+.expanded-player-sheet {
   display: none;
   flex-direction: column;
-  background-color: var(--bg-black);
+  background-color: var(--bg-pure-black);
   min-height: 100%;
   padding-bottom: 40px;
 }
 
-.player-top-header {
+.player-sticky-top-bar {
   padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--bg-surface-1);
+  background: var(--bg-card-1);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.player-header-title {
+.player-top-video-name {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--text-secondary);
@@ -738,27 +769,27 @@ img {
   max-width: 70%;
 }
 
-.video-frame-wrapper iframe {
+.media-iframe-wrapper iframe {
   width: 100%;
   height: 100%;
   border: none;
 }
 
-.video-meta-section {
-  padding: 14px 14px 10px 14px;
+.player-info-container {
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
-.video-full-title {
+.full-video-headline {
   font-size: 1.05rem;
   font-weight: 800;
   color: #ffffff;
   line-height: 1.4;
 }
 
-.video-stats-row {
+.full-video-metrics-bar {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -766,42 +797,42 @@ img {
   color: var(--text-muted);
 }
 
-/* Channel & Subscribe */
-.channel-action-card {
+/* Channel & Subscribe Box */
+.channel-interactive-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
-  background: var(--bg-surface-1);
+  padding: 12px 14px;
+  background: var(--bg-card-1);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
 }
 
-.channel-profile-info {
+.channel-left-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.channel-avatar-md {
-  width: 42px;
-  height: 42px;
+.channel-avatar-lg {
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
 }
 
-.channel-name-txt {
-  font-size: 0.92rem;
+.channel-text-name {
+  font-size: 0.94rem;
   font-weight: 700;
   color: #fff;
 }
 
-.channel-subs-txt {
-  font-size: 0.74rem;
+.channel-text-subs {
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-.btn-subscribe {
-  padding: 7px 16px;
+.btn-toggle-sub {
+  padding: 8px 18px;
   background: var(--brand-red);
   color: #fff;
   border-radius: var(--radius-full);
@@ -811,86 +842,76 @@ img {
   transition: all 0.2s;
 }
 
-.btn-subscribe.subscribed {
-  background: var(--bg-surface-3);
+.btn-toggle-sub.subscribed {
+  background: var(--bg-card-3);
   color: var(--text-secondary);
 }
 
-/* Action Buttons Bar */
-.action-buttons-row {
+/* Action Pills Row */
+.action-buttons-flex {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.btn-action-tile {
+  padding: 10px 6px;
+  background: var(--bg-card-2);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 700;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 4px 0;
-}
-
-.action-buttons-row::-webkit-scrollbar {
-  display: none;
-}
-
-.btn-pill-action {
-  flex: 1;
-  min-width: 72px;
-  padding: 8px 10px;
-  background: var(--bg-surface-2);
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 600;
-  gap: 6px;
+  gap: 5px;
   border: 1px solid var(--border-subtle);
   transition: all 0.2s;
 }
 
-.btn-pill-action.active {
+.btn-action-tile i {
+  font-size: 16px;
+}
+
+.btn-action-tile.active {
   background: rgba(255, 0, 51, 0.15);
   color: var(--brand-red);
   border-color: var(--brand-red);
 }
 
-.sponsorblock-badge {
+.loksha-adblock-guarantee {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(0, 230, 118, 0.1);
+  background: rgba(0, 230, 118, 0.08);
   border: 1px solid rgba(0, 230, 118, 0.3);
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: var(--radius-md);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--accent-green);
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* Related Videos */
-.related-section {
+/* Related Up Next Videos */
+.up-next-block {
   padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   border-top: 1px solid var(--border-subtle);
 }
 
-.section-head-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* BOTTOM NAVIGATION */
-.bottom-nav {
+/* ==========================================================================
+   ORGANIZED BOTTOM NAVIGATION
+   ========================================================================== */
+.app-bottom-navbar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: var(--bottom-nav-height);
-  background: rgba(8, 8, 12, 0.97);
-  backdrop-filter: blur(18px);
+  background: rgba(8, 9, 14, 0.98);
+  backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -898,100 +919,100 @@ img {
   z-index: 50;
 }
 
-.nav-item {
+.navbar-tab-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   color: var(--text-muted);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   transition: color 0.2s;
-  padding: 4px 12px;
+  padding: 6px 14px;
 }
 
-.nav-item i {
-  font-size: 18px;
+.navbar-tab-btn i {
+  font-size: 19px;
 }
 
-.nav-item.active {
+.navbar-tab-btn.active {
   color: var(--brand-red);
 }
 
-/* Toast */
-.app-toast {
+/* Toast Notification */
+.app-toast-alert {
   position: absolute;
   top: 16px;
   left: 50%;
   transform: translateX(-50%) translateY(-60px);
-  background: rgba(18, 19, 26, 0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(16, 18, 26, 0.96);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--brand-red);
   color: #fff;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: var(--radius-full);
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 8px;
   z-index: 99;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.app-toast.show {
+.app-toast-alert.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
 
-/* Modals */
-.modal-backdrop {
+/* Settings Modal */
+.modal-overlay-backdrop {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
   z-index: 90;
   display: none;
   align-items: flex-end;
 }
 
-.modal-backdrop.open {
+.modal-overlay-backdrop.open {
   display: flex;
 }
 
-.modal-sheet {
+.modal-sheet-panel {
   width: 100%;
-  background: var(--bg-surface-1);
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
+  background: var(--bg-card-1);
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
   border-top: 1px solid var(--border-subtle);
-  padding: 20px 16px 28px 16px;
+  padding: 22px 18px 30px 18px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-.modal-title {
-  font-size: 1.1rem;
+.modal-header-title {
+  font-size: 1.12rem;
   font-weight: 800;
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.setting-item {
+.settings-row-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px;
-  background: var(--bg-surface-2);
+  background: var(--bg-card-2);
   border-radius: var(--radius-md);
 }
   </style>
@@ -1000,269 +1021,276 @@ img {
   <div class="app-layout">
     <div class="mobile-frame">
       
-      <!-- TOP HEADER -->
+      <!-- ====================================================================
+           1. ORGANIZED APP HEADER
+           ==================================================================== -->
       <header class="app-header">
-        <div class="header-main">
-          <div class="brand-logo" id="btnLogo">
-            <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
-            <div class="logo-text">Nova<span>Vance</span></div>
-            <span class="badge-pro">PRO</span>
+        <div class="header-top-row">
+          
+          <!-- Logo & Branding -->
+          <div class="brand-wrapper" id="btnLogoHome">
+            <div class="brand-icon-box"><i class="fa-solid fa-play"></i></div>
+            <div class="brand-titles">
+              <div class="brand-main-title">
+                لوكشا <span>تيوب</span>
+                <span class="brand-badge">VANCED</span>
+              </div>
+            </div>
           </div>
-          <div class="header-actions">
-            <button class="icon-btn" id="btnOpenSearch" title="بحث في يوتيوب"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <button class="icon-btn" id="btnOpenDownloads" title="التنزيلات"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-            <button class="icon-btn" id="btnOpenSettings" title="الإعدادات"><i class="fa-solid fa-gear"></i></button>
+
+          <!-- Header Actions -->
+          <div class="header-actions-group">
+            <button class="action-icon-btn" id="btnOpenSearch" title="بحث في يوتيوب"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button class="action-icon-btn" id="btnOpenDownloads" title="التنزيلات"><i class="fa-solid fa-circle-down"></i></button>
+            <button class="action-icon-btn" id="btnOpenSettings" title="الإعدادات"><i class="fa-solid fa-sliders"></i></button>
           </div>
         </div>
 
-        <!-- CATEGORY CHIPS -->
-        <div class="categories-bar" id="categoryChips">
-          <button class="chip active" data-category="all">الكل</button>
-          <button class="chip" data-category="trending">🔥 رائج الآن</button>
-          <button class="chip" data-category="quran">📖 قرآن كريم</button>
-          <button class="chip" data-category="music">🎵 موسيقى وأغاني</button>
-          <button class="chip" data-category="tech">💻 تقنية وبرمجة</button>
-          <button class="chip" data-category="podcasts">🎙️ بودكاست</button>
-          <button class="chip" data-category="gaming">🎮 ألعاب</button>
-          <button class="chip" data-category="sports">⚽ رياضة</button>
+        <!-- Filter Category Pills -->
+        <div class="categories-scroll-row" id="categoriesScrollRow">
+          <button class="cat-pill active" data-category="all"><i class="fa-solid fa-border-all"></i> الكل</button>
+          <button class="cat-pill" data-category="trending"><i class="fa-solid fa-fire" style="color:var(--brand-red);"></i> رائج الآن</button>
+          <button class="cat-pill" data-category="quran"><i class="fa-solid fa-book-quran" style="color:var(--accent-green);"></i> قرآن كريم</button>
+          <button class="cat-pill" data-category="music"><i class="fa-solid fa-music" style="color:var(--accent-purple);"></i> موسيقى</button>
+          <button class="cat-pill" data-category="tech"><i class="fa-solid fa-code" style="color:var(--accent-cyan);"></i> برمجة وتقنية</button>
+          <button class="cat-pill" data-category="podcasts"><i class="fa-solid fa-microphone" style="color:var(--accent-gold);"></i> بودكاست</button>
+          <button class="cat-pill" data-category="gaming"><i class="fa-solid fa-gamepad" style="color:#ff5500;"></i> ألعاب</button>
+          <button class="cat-pill" data-category="sports"><i class="fa-solid fa-futbol" style="color:#00e5ff;"></i> رياضة</button>
         </div>
       </header>
 
-      <!-- SEARCH OVERLAY (LIVE REAL YOUTUBE SEARCH) -->
-      <div class="search-overlay" id="searchOverlay">
-        <div class="search-header">
-          <button class="icon-btn" id="btnCloseSearch"><i class="fa-solid fa-arrow-right"></i></button>
-          <div class="search-input-wrapper">
-            <input type="text" id="searchInput" placeholder="ابحث عن أي فيديو أو الصق رابط يوتيوب..." autocomplete="off">
-            <button class="clear-btn" id="btnClearSearch"><i class="fa-solid fa-xmark"></i></button>
+      <!-- ====================================================================
+           2. ORGANIZED SEARCH FULLSCREEN OVERLAY
+           ==================================================================== -->
+      <div class="search-fullscreen-overlay" id="searchOverlay">
+        <div class="search-bar-header">
+          <button class="action-icon-btn" id="btnCloseSearch"><i class="fa-solid fa-arrow-right"></i></button>
+          <div class="search-input-box">
+            <input type="text" id="searchInput" placeholder="ابحث عن أي فيديو، قناة، أو الصق رابط..." autocomplete="off">
+            <button class="btn-clear-search" id="btnClearSearch"><i class="fa-solid fa-xmark"></i></button>
           </div>
-          <button class="btn-search-exec" id="btnExecuteSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="btn-trigger-search" id="btnExecuteSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         
-        <div class="search-body">
-          <!-- Autocomplete / Suggestions -->
-          <div class="search-suggestions-container" id="suggestionsBox" style="display:none;">
-            <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted);"><i class="fa-solid fa-bolt"></i> اقتراحات بحث يوتيوب:</div>
-            <div class="suggestions-list" id="suggestionsList"></div>
-          </div>
-
-          <!-- Quick Discovery Tags -->
-          <div class="quick-tags-section" id="quickTagsSection">
-            <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); margin-bottom:6px;"><i class="fa-solid fa-fire"></i> عمليات البحث الشائعة:</div>
-            <div class="tags-cloud">
-              <span class="search-tag" data-query="قرآن كريم بصوت خاشع"><i class="fa-solid fa-book-quran"></i> قرآن كريم</span>
-              <span class="search-tag" data-query="عمرو دياب"><i class="fa-solid fa-music"></i> عمرو دياب</span>
-              <span class="search-tag" data-query="ملخص مباراة ريال مدريد"><i class="fa-solid fa-futbol"></i> ريال مدريد</span>
-              <span class="search-tag" data-query="بودكاست فنجان ثمانية"><i class="fa-solid fa-microphone"></i> بودكاست فنجان</span>
-              <span class="search-tag" data-query="تعلم البرمجة Elzero"><i class="fa-solid fa-code"></i> البرمجة</span>
-              <span class="search-tag" data-query="مستر بيست بالعربي"><i class="fa-solid fa-play"></i> مستر بيست</span>
-              <span class="search-tag" data-query="سورة البقرة كاملة"><i class="fa-solid fa-kaaba"></i> سورة البقرة</span>
-              <span class="search-tag" data-query="Lofi chill beats study"><i class="fa-solid fa-headphones"></i> Lo-Fi Beats</span>
+        <div class="search-content-area">
+          <!-- Quick Popular Tags -->
+          <div class="quick-search-tags-box" id="quickTagsSection">
+            <div class="quick-tags-title"><i class="fa-solid fa-bolt" style="color:var(--brand-red);"></i> الأكثر بحثاً الآن:</div>
+            <div class="tags-cloud-flex">
+              <span class="search-pill-tag" data-query="سورة الكهف ماهر المعيقلي"><i class="fa-solid fa-kaaba"></i> سورة الكهف</span>
+              <span class="search-pill-tag" data-query="عمرو دياب"><i class="fa-solid fa-music"></i> عمرو دياب</span>
+              <span class="search-pill-tag" data-query="ملخص مباراة ريال مدريد"><i class="fa-solid fa-futbol"></i> ريال مدريد</span>
+              <span class="search-pill-tag" data-query="بودكاست فنجان ثمانية"><i class="fa-solid fa-microphone"></i> بودكاست فنجان</span>
+              <span class="search-pill-tag" data-query="تعلم البرمجة Elzero"><i class="fa-solid fa-code"></i> البرمجة والذكاء الاصطناعي</span>
+              <span class="search-pill-tag" data-query="مستر بيست بالعربي"><i class="fa-solid fa-play"></i> مستر بيست</span>
+              <span class="search-pill-tag" data-query="Lofi chill beats"><i class="fa-solid fa-headphones"></i> Lo-Fi تركيز</span>
             </div>
           </div>
 
-          <!-- Search Results List -->
-          <div id="searchResultsList" style="display:flex; flex-direction:column; gap:12px;"></div>
+          <!-- Live Search Results Container -->
+          <div id="searchResultsList" style="display:flex; flex-direction:column; gap:14px;"></div>
         </div>
       </div>
 
-      <!-- MAIN APP VIEWS -->
-      <main class="views-container">
+      <!-- ====================================================================
+           3. ORGANIZED APP TAB PANES
+           ==================================================================== -->
+      <main class="views-viewport">
         
-        <!-- TAB: HOME -->
-        <section class="tab-view active" id="tabHome">
-          <div class="channel-stories-row" id="subsStoriesList"></div>
-          <div id="homeVideoFeed" style="display:flex; flex-direction:column; gap:14px;"></div>
+        <!-- TAB 1: HOME -->
+        <section class="tab-pane active" id="tabHome">
+          <div class="stories-channel-bar" id="homeStoriesBar"></div>
+          <div id="homeVideoFeed" style="display:flex; flex-direction:column; gap:16px;"></div>
         </section>
 
-        <!-- TAB: EXPLORE / TRENDING -->
-        <section class="tab-view" id="tabExplore">
-          <div class="section-head-title"><i class="fa-solid fa-fire" style="color:var(--brand-red);"></i> المحتوى الأكثر رواجاً عالمياً وعربياً</div>
-          <div id="trendingVideoFeed" style="display:flex; flex-direction:column; gap:14px;"></div>
+        <!-- TAB 2: TRENDING / EXPLORE -->
+        <section class="tab-pane" id="tabExplore">
+          <div class="section-headline"><i class="fa-solid fa-fire" style="color:var(--brand-red);"></i> الفيديوهات الأكثر رواجاً على يوتيوب</div>
+          <div id="trendingVideoFeed" style="display:flex; flex-direction:column; gap:16px;"></div>
         </section>
 
-        <!-- TAB: SUBSCRIPTIONS -->
-        <section class="tab-view" id="tabSubs">
-          <div class="section-head-title"><i class="fa-solid fa-tv" style="color:var(--accent-purple);"></i> القنوات المشترك بها</div>
-          <div class="channel-stories-row" id="subsFullChannelsList"></div>
-          <div id="subsVideoFeed" style="display:flex; flex-direction:column; gap:14px; margin-top:8px;"></div>
+        <!-- TAB 3: SUBSCRIPTIONS -->
+        <section class="tab-pane" id="tabSubs">
+          <div class="section-headline"><i class="fa-solid fa-tv" style="color:var(--accent-purple);"></i> القنوات المشترك بها</div>
+          <div class="stories-channel-bar" id="subsFullChannelsList"></div>
+          <div id="subsVideoFeed" style="display:flex; flex-direction:column; gap:16px; margin-top:6px;"></div>
         </section>
 
-        <!-- TAB: LIBRARY -->
-        <section class="tab-view" id="tabLibrary">
-          <div class="section-head-title"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-cyan);"></i> سجل المشاهدة الأخير</div>
-          <div id="historyCarousel" style="display:flex; gap:10px; overflow-x:auto; padding-bottom:8px;"></div>
+        <!-- TAB 4: LIBRARY -->
+        <section class="tab-pane" id="tabLibrary">
+          <div class="section-headline"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-cyan);"></i> سجل المشاهدة</div>
+          <div id="historyCarousel" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:8px;"></div>
           
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
-            <div class="setting-item" style="cursor:pointer;" id="btnOpenLiked">
-              <div>
-                <i class="fa-solid fa-thumbs-up" style="color:var(--brand-red); font-size:18px;"></i>
-                <div style="font-weight:700; font-size:0.85rem; margin-top:4px;">الإعجابات</div>
-                <div style="font-size:0.72rem; color:var(--text-muted);" id="likedCountText">0 فيديوهات</div>
-              </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;">
+            <div class="settings-row-item" style="cursor:pointer; flex-direction:column; align-items:flex-start; gap:6px;">
+              <i class="fa-solid fa-thumbs-up" style="color:var(--brand-red); font-size:20px;"></i>
+              <div style="font-weight:700; font-size:0.88rem;">الفيديوهات التي أعجبتني</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);" id="likedCountText">0 فيديوهات</div>
             </div>
-            <div class="setting-item" style="cursor:pointer;" id="btnOpenWatchLater">
-              <div>
-                <i class="fa-solid fa-bookmark" style="color:var(--accent-purple); font-size:18px;"></i>
-                <div style="font-weight:700; font-size:0.85rem; margin-top:4px;">المشاهدة لاحقاً</div>
-                <div style="font-size:0.72rem; color:var(--text-muted);" id="watchLaterCountText">0 فيديوهات</div>
-              </div>
+            <div class="settings-row-item" style="cursor:pointer; flex-direction:column; align-items:flex-start; gap:6px;">
+              <i class="fa-solid fa-bookmark" style="color:var(--accent-purple); font-size:20px;"></i>
+              <div style="font-weight:700; font-size:0.88rem;">المشاهدة لاحقاً</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);" id="watchLaterCountText">0 فيديوهات</div>
             </div>
           </div>
 
-          <div style="margin-top:14px;">
-            <button class="btn-pill-action" id="btnClearHistory" style="width:100%; border-radius:12px; padding:10px;"><i class="fa-solid fa-trash"></i> مسح سجل المشاهدة</button>
+          <div style="margin-top:10px;">
+            <button class="cat-pill" id="btnClearHistory" style="width:100%; justify-content:center; padding:12px; border-radius:14px;"><i class="fa-solid fa-trash"></i> مسح سجل المشاهدة</button>
           </div>
         </section>
 
-        <!-- TAB: DOWNLOADS -->
-        <section class="tab-view" id="tabDownloads">
-          <div class="section-head-title"><i class="fa-solid fa-circle-down" style="color:var(--accent-green);"></i> التنزيلات المتاحة بدون إنترنت</div>
-          <div id="downloadsList" style="display:flex; flex-direction:column; gap:10px; margin-top:8px;"></div>
-          <button class="btn-pill-action" id="btnClearDownloads" style="margin-top:12px; border-radius:12px; padding:10px;"><i class="fa-solid fa-trash"></i> مسح التنزيلات</button>
+        <!-- TAB 5: DOWNLOADS -->
+        <section class="tab-pane" id="tabDownloads">
+          <div class="section-headline"><i class="fa-solid fa-circle-down" style="color:var(--accent-green);"></i> التنزيلات والمشاهدة بدون إنترنت</div>
+          <div id="downloadsList" style="display:flex; flex-direction:column; gap:12px; margin-top:6px;"></div>
+          <button class="cat-pill" id="btnClearDownloads" style="margin-top:12px; width:100%; justify-content:center; padding:12px; border-radius:14px;"><i class="fa-solid fa-trash"></i> مسح جميع التنزيلات</button>
         </section>
 
       </main>
 
       <!-- ====================================================================
-           AMOLED FLOATING MINI & FULLSCREEN EXPANDABLE PLAYER
+           4. ORGANIZED FLOATING MINI & FULLSCREEN AMOLED PLAYER
            ==================================================================== -->
-      <div class="player-container collapsed hidden" id="playerContainer">
+      <div class="player-host-container collapsed hidden" id="playerContainer">
         
-        <!-- 1. MINI PLAYER BAR (When collapsed at bottom) -->
-        <div class="mini-player-bar" id="miniPlayerBar">
-          <div class="mini-thumb" id="btnExpandFromThumb">
+        <!-- 4.1. FLOATING MINI PLAYER BAR (At Bottom) -->
+        <div class="mini-player-strip" id="miniPlayerBar">
+          <div class="mini-thumb-box" id="btnExpandFromThumb">
             <img src="" id="miniPlayerThumb" alt="">
           </div>
-          <div class="mini-info" id="btnExpandFromInfo">
-            <div class="mini-title" id="miniPlayerTitle">عنوان الفيديو</div>
-            <div class="mini-channel" id="miniPlayerChannel">اسم القناة</div>
+          <div class="mini-text-box" id="btnExpandFromInfo">
+            <div class="mini-now-playing-title" id="miniPlayerTitle">عنوان الفيديو</div>
+            <div class="mini-now-playing-channel" id="miniPlayerChannel">لوكشا تيوب</div>
           </div>
-          <div class="mini-controls">
-            <button class="icon-btn" id="miniBtnPlayPause"><i class="fa-solid fa-pause"></i></button>
-            <button class="icon-btn" id="miniBtnExpand"><i class="fa-solid fa-chevron-up"></i></button>
-            <button class="icon-btn" id="miniBtnClose"><i class="fa-solid fa-xmark"></i></button>
+          <div class="mini-strip-actions">
+            <button class="action-icon-btn" id="miniBtnPlayPause"><i class="fa-solid fa-pause"></i></button>
+            <button class="action-icon-btn" id="miniBtnExpand"><i class="fa-solid fa-chevron-up"></i></button>
+            <button class="action-icon-btn" id="miniBtnClose"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
 
-        <!-- 2. FULL EXPANDED PLAYER -->
-        <div class="full-player-content" id="fullPlayerContent">
+        <!-- 4.2. FULL EXPANDED PLAYER VIEW -->
+        <div class="expanded-player-sheet" id="fullPlayerContent">
           
-          <!-- Top Bar -->
-          <div class="player-top-header">
-            <button class="icon-btn" id="btnCollapsePlayer"><i class="fa-solid fa-chevron-down"></i></button>
-            <div class="player-header-title" id="playerTopTitle">جاري التشغيل...</div>
-            <button class="icon-btn" id="btnAudioModeToggle" title="وضع الصوت في الخلفية"><i class="fa-solid fa-headphones"></i></button>
+          <!-- Sticky Top Header -->
+          <div class="player-sticky-top-bar">
+            <button class="action-icon-btn" id="btnCollapsePlayer"><i class="fa-solid fa-chevron-down"></i></button>
+            <div class="player-top-video-name" id="playerTopTitle">جاري التشغيل...</div>
+            <button class="action-icon-btn" id="btnAudioModeToggle" title="تشغيل في الخلفية"><i class="fa-solid fa-headphones"></i></button>
           </div>
 
           <!-- Video Embed Frame -->
-          <div class="video-frame-wrapper">
+          <div class="media-iframe-wrapper">
             <iframe id="ytEmbedFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
 
-          <!-- Video Info & Meta -->
-          <div class="video-meta-section">
-            <div class="video-full-title" id="videoDetailTitle">عنوان الفيديو الكامل</div>
-            <div class="video-stats-row">
+          <!-- Video Metadata & Channels -->
+          <div class="player-info-container">
+            <div class="full-video-headline" id="videoDetailTitle">عنوان الفيديو الكامل</div>
+            <div class="full-video-metrics-bar">
               <span id="videoDetailViews"><i class="fa-solid fa-eye"></i> 1.2M مشاهدة</span>
               <span>•</span>
-              <span id="videoDetailDate"><i class="fa-solid fa-calendar"></i> منذ يومين</span>
+              <span id="videoDetailDate"><i class="fa-solid fa-calendar"></i> مؤخراً</span>
               <span>•</span>
-              <span style="color:var(--accent-cyan);"><i class="fa-solid fa-circle-check"></i> بجودة 1080p / 4K</span>
+              <span style="color:var(--accent-cyan);"><i class="fa-solid fa-shield-check"></i> جودة فائقة 1080p / 4K</span>
             </div>
 
-            <!-- Channel Profile & Subscribe -->
-            <div class="channel-action-card">
-              <div class="channel-profile-info">
-                <img src="" id="channelAvatarImg" class="channel-avatar-md" alt="">
+            <!-- Channel Box & Subscribe -->
+            <div class="channel-interactive-box">
+              <div class="channel-left-info">
+                <img src="" id="channelAvatarImg" class="channel-avatar-lg" alt="">
                 <div>
-                  <div class="channel-name-txt" id="channelNameText">اسم القناة</div>
-                  <div class="channel-subs-txt" id="channelSubsCount">مشترك</div>
+                  <div class="channel-text-name" id="channelNameText">اسم القناة</div>
+                  <div class="channel-text-subs" id="channelSubsCount">مشترك</div>
                 </div>
               </div>
-              <button class="btn-subscribe" id="btnSubscribe"><i class="fa-solid fa-bell"></i> <span>اشتراك</span></button>
+              <button class="btn-toggle-sub" id="btnSubscribe"><i class="fa-solid fa-bell"></i> <span>اشتراك</span></button>
             </div>
 
-            <!-- Quick Action Buttons -->
-            <div class="action-buttons-row">
-              <button class="btn-pill-action" id="btnLike"><i class="fa-solid fa-thumbs-up"></i> <span>إعجاب</span></button>
-              <button class="btn-pill-action" id="btnSavePlaylist"><i class="fa-solid fa-bookmark"></i> <span>حفظ</span></button>
-              <button class="btn-pill-action" id="btnDownload"><i class="fa-solid fa-arrow-down"></i> <span>تنزيل</span></button>
-              <button class="btn-pill-action" id="btnShare"><i class="fa-solid fa-share-nodes"></i> <span>مشاركة</span></button>
+            <!-- Action Pill Grid -->
+            <div class="action-buttons-flex">
+              <button class="btn-action-tile" id="btnLike"><i class="fa-solid fa-thumbs-up"></i><span>إعجاب</span></button>
+              <button class="btn-action-tile" id="btnSavePlaylist"><i class="fa-solid fa-bookmark"></i><span>حفظ</span></button>
+              <button class="btn-action-tile" id="btnDownload"><i class="fa-solid fa-circle-down"></i><span>تنزيل</span></button>
+              <button class="btn-action-tile" id="btnShare"><i class="fa-solid fa-share-nodes"></i><span>مشاركة</span></button>
             </div>
 
-            <!-- SponsorBlock & Adblock Guarantee -->
-            <div class="sponsorblock-badge">
-              <span><i class="fa-solid fa-shield-halved"></i> حماية NovaVance نشطة: بدون أي إعلانات أو رعاة</span>
-              <i class="fa-solid fa-check-double"></i>
+            <!-- AdBlock Banner -->
+            <div class="loksha-adblock-guarantee">
+              <span><i class="fa-solid fa-shield-halved"></i> حماية لوكشا تيوب: بدون إعلانات أو فواصل نهائياً</span>
+              <i class="fa-solid fa-circle-check"></i>
             </div>
           </div>
 
-          <!-- Related / Recommended Videos -->
-          <div class="related-section">
-            <div class="section-head-title"><i class="fa-solid fa-film"></i> فيديوهات مقترحة تالية</div>
-            <div id="relatedVideosFeed" style="display:flex; flex-direction:column; gap:12px;"></div>
+          <!-- Recommended Next Videos -->
+          <div class="up-next-block">
+            <div class="section-headline"><i class="fa-solid fa-film"></i> فيديوهات مقترحة تالية</div>
+            <div id="relatedVideosFeed" style="display:flex; flex-direction:column; gap:14px;"></div>
           </div>
 
         </div>
 
       </div>
 
-      <!-- BOTTOM NAVIGATION BAR -->
-      <nav class="bottom-nav">
-        <button class="nav-item active" data-tab="tabHome">
+      <!-- ====================================================================
+           5. ORGANIZED BOTTOM NAVIGATION BAR
+           ==================================================================== -->
+      <nav class="app-bottom-navbar">
+        <button class="navbar-tab-btn active" data-tab="tabHome">
           <i class="fa-solid fa-house"></i>
           <span>الرئيسية</span>
         </button>
-        <button class="nav-item" data-tab="tabExplore">
+        <button class="navbar-tab-btn" data-tab="tabExplore">
           <i class="fa-solid fa-fire"></i>
           <span>رائج</span>
         </button>
-        <button class="nav-item" data-tab="tabSubs">
+        <button class="navbar-tab-btn" data-tab="tabSubs">
           <i class="fa-solid fa-tv"></i>
           <span>الاشتراكات</span>
         </button>
-        <button class="nav-item" data-tab="tabLibrary">
+        <button class="navbar-tab-btn" data-tab="tabLibrary">
           <i class="fa-solid fa-layer-group"></i>
           <span>المكتبة</span>
         </button>
-        <button class="nav-item" data-tab="tabDownloads">
+        <button class="navbar-tab-btn" data-tab="tabDownloads">
           <i class="fa-solid fa-circle-down"></i>
           <span>التنزيلات</span>
         </button>
       </nav>
 
-      <!-- SETTINGS MODAL -->
-      <div class="modal-backdrop" id="settingsModal">
-        <div class="modal-sheet">
-          <div class="modal-title"><i class="fa-solid fa-sliders"></i> إعدادات NovaVance</div>
-          <div class="setting-item">
+      <!-- ====================================================================
+           6. SETTINGS MODAL
+           ==================================================================== -->
+      <div class="modal-overlay-backdrop" id="settingsModal">
+        <div class="modal-sheet-panel">
+          <div class="modal-header-title"><i class="fa-solid fa-sliders" style="color:var(--brand-red);"></i> إعدادات لوكشا تيوب</div>
+          <div class="settings-row-item">
             <div>
               <div style="font-weight:700; color:#fff;">تخطي الإعلانات والرعاة (SponsorBlock)</div>
               <div style="font-size:0.75rem; color:var(--text-muted);">تخطي فواصل الإعلانات تلقائياً</div>
             </div>
             <div style="color:var(--accent-green); font-weight:700;">مُفعّل دائماً ✓</div>
           </div>
-          <div class="setting-item">
+          <div class="settings-row-item">
             <div>
-              <div style="font-weight:700; color:#fff;">التشغيل في الخلفية والشاشة مغلقة</div>
+              <div style="font-weight:700; color:#fff;">التشغيل في الخلفية والشاشة مقفلة</div>
               <div style="font-size:0.75rem; color:var(--text-muted);">الاستماع للصوتيات والبودكاست</div>
             </div>
             <div style="color:var(--accent-green); font-weight:700;">مُفعّل ✓</div>
           </div>
-          <div class="setting-item">
+          <div class="settings-row-item">
             <div>
               <div style="font-weight:700; color:#fff;">جودة البث الافتراضية</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">أعلى دقة متاحة تلقائياً</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">أعلى دقة 1080p / 4K تلقائياً</div>
             </div>
-            <div style="color:var(--accent-cyan); font-weight:700;">4K / 1080p 60FPS</div>
+            <div style="color:var(--accent-cyan); font-weight:700;">4K Ultra HD</div>
           </div>
-          <button class="btn-pill-action" id="btnCloseSettings" style="background:var(--brand-red); color:#fff; font-weight:700; padding:12px; border-radius:14px;">إغلاق</button>
+          <button class="cat-pill" id="btnCloseSettings" style="background:var(--brand-red); color:#fff; font-weight:700; padding:14px; border-radius:14px; justify-content:center; margin-top:6px;">إغلاق</button>
         </div>
       </div>
 
-      <!-- APP TOAST NOTIFICATION -->
-      <div class="app-toast" id="appToast">
+      <!-- TOAST NOTIFICATION -->
+      <div class="app-toast-alert" id="appToast">
         <i class="fa-solid fa-circle-check" style="color:var(--accent-green);"></i>
         <span class="toast-message">تمت العملية بنجاح</span>
       </div>
@@ -1270,15 +1298,15 @@ img {
     </div>
   </div>
 
-  <!-- JAVASCRIPT APP LOGIC -->
+  <!-- ====================================================================
+       7. ULTRA-CLEAN JAVASCRIPT LOGIC
+       ==================================================================== -->
   <script>
-// ==========================================================================
-// 1. MASSIVE CURATED DATABASE (OFFLINE & INSTANT FALLBACK)
-// ==========================================================================
-const CuratedDatabase = {
+// --- CURATED HIGH QUALITY REPOSITORY ---
+const MasterCatalog = {
   homeFeed: [
     {
-      id: 'h_quran1',
+      id: 'loksha_quran1',
       ytId: 'linlz7-Pnvw',
       title: 'سورة الكهف كاملة تلاوة خاشعة تريح القلوب وتزيل الهموم | ماهر المعيقلي',
       channel: { name: 'القرآن الكريم', avatar: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=120&auto=format&fit=crop', subs: '12M مشترك' },
@@ -1290,7 +1318,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/linlz7-Pnvw/hqdefault.jpg'
     },
     {
-      id: 'h_amr1',
+      id: 'loksha_amr1',
       ytId: 'c99_XnJbLls',
       title: 'عمرو دياب - يا أنا يا لأ (فيديو كليب رسمي)',
       channel: { name: 'Amr Diab', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop', subs: '6.2M مشترك' },
@@ -1302,7 +1330,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/c99_XnJbLls/hqdefault.jpg'
     },
     {
-      id: 'h_tech1',
+      id: 'loksha_tech1',
       ytId: 'dQw4w9WgXcQ',
       title: 'خارطة طريق تعلم البرمجة وتطوير التطبيقات والذكاء الاصطناعي 2026',
       channel: { name: 'Elzero Web School', avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop', subs: '2.4M مشترك' },
@@ -1314,7 +1342,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
     },
     {
-      id: 'h_podcast1',
+      id: 'loksha_podcast1',
       ytId: '9bZkp7q19f0',
       title: 'بودكاست فنجان: كيف تبني مستقبلك المالي وتستثمر بذكاء؟ | ثمانية',
       channel: { name: 'ثمانية / Thmanyah', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&auto=format&fit=crop', subs: '5.9M مشترك' },
@@ -1326,7 +1354,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg'
     },
     {
-      id: 'h_realmadrid1',
+      id: 'loksha_sports1',
       ytId: 'bZ1Xz7M5g8o',
       title: 'ملخص وأهداف مباراة ريال مدريد وجنون دوري أبطال أوروبا HD',
       channel: { name: 'beIN SPORTS', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop', subs: '15M مشترك' },
@@ -1338,7 +1366,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/bZ1Xz7M5g8o/hqdefault.jpg'
     },
     {
-      id: 'h_lofi1',
+      id: 'loksha_lofi1',
       ytId: 'jfKfPfyJRdk',
       title: 'Lo-Fi Chill Beats 🎧 موسيقى هادئة للدراسة والتركيز والعمل العميق 4K',
       channel: { name: 'Lofi Girl Arabia', avatar: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop', subs: '14.5M مشترك' },
@@ -1350,7 +1378,7 @@ const CuratedDatabase = {
       thumbnail: 'https://img.youtube.com/vi/jfKfPfyJRdk/hqdefault.jpg'
     },
     {
-      id: 'h_gaming1',
+      id: 'loksha_gaming1',
       ytId: 'k1BneeJTDcU',
       title: 'تجربة أضخم لعبة عالم مفتوح لهذا العام بأعلى إعدادات 4K 60FPS 🎮',
       channel: { name: 'SHONGxBONG', avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=120&auto=format&fit=crop', subs: '4.8M مشترك' },
@@ -1387,14 +1415,13 @@ const CuratedDatabase = {
   }
 };
 
-// ==========================================================================
-// 2. LIVE YOUTUBE SEARCH & SUGGESTIONS ENGINE (INSTANT MULTI-TIER)
-// ==========================================================================
-const YouTubeSearchEngine = {
-  // Live Invidious API instance that supports CORS
-  apiUrl: 'https://invidious.f5.si/api/v1',
+// --- LIVE YOUTUBE SEARCH & DISCOVERY ENGINE ---
+const LiveYouTubeEngine = {
+  apiEndpoints: [
+    'https://invidious.f5.si/api/v1',
+    'https://invidious.flokinet.to/api/v1'
+  ],
 
-  // Extract direct YouTube ID or URL
   parseDirectId(query) {
     if (!query) return null;
     const match = query.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/);
@@ -1403,12 +1430,11 @@ const YouTubeSearchEngine = {
     return null;
   },
 
-  // Perform Live YouTube Search
   async search(query) {
     const q = query.trim();
     if (!q) return [];
 
-    // Tier 1: Check Direct Link or ID
+    // 1. Direct Link / ID
     const directId = this.parseDirectId(q);
     if (directId) {
       return [{
@@ -1424,167 +1450,159 @@ const YouTubeSearchEngine = {
       }];
     }
 
-    // Tier 2: Fetch Real YouTube API Results from Invidious
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
-      const res = await fetch(`${this.apiUrl}/search?q=${encodeURIComponent(q)}&type=video`, {
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
+    // 2. Multi-tier Invidious Search
+    for (const ep of this.apiEndpoints) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const res = await fetch(`${ep}/search?q=${encodeURIComponent(q)}&type=video`, { signal: controller.signal });
+        clearTimeout(timeoutId);
 
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          return data.filter(item => item.type === 'video' && item.videoId).map(v => ({
-            id: 'live_' + v.videoId,
-            ytId: v.videoId,
-            title: v.title,
-            channel: {
-              name: v.author || 'قناة يوتيوب',
-              avatar: (v.authorThumbnails && v.authorThumbnails[0]) ? v.authorThumbnails[0].url : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop',
-              subs: 'قناة رسمية'
-            },
-            duration: CuratedDatabase.formatDuration(v.lengthSeconds),
-            views: CuratedDatabase.formatViews(v.viewCount || v.viewCountText),
-            uploadedAt: v.publishedText || 'مؤخراً',
-            quality: v.is4k ? '4K Ultra' : '1080p 60fps',
-            thumbnail: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`
-          }));
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            return data.filter(item => item.type === 'video' && item.videoId).map(v => ({
+              id: 'live_' + v.videoId,
+              ytId: v.videoId,
+              title: v.title,
+              channel: {
+                name: v.author || 'قناة يوتيوب',
+                avatar: (v.authorThumbnails && v.authorThumbnails[0]) ? v.authorThumbnails[0].url : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop',
+                subs: 'قناة رسمية'
+              },
+              duration: MasterCatalog.formatDuration(v.lengthSeconds),
+              views: MasterCatalog.formatViews(v.viewCount || v.viewCountText),
+              uploadedAt: v.publishedText || 'مؤخراً',
+              quality: v.is4k ? '4K Ultra' : '1080p 60fps',
+              thumbnail: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`
+            }));
+          }
         }
+      } catch (e) {
+        // try next endpoint
       }
-    } catch (e) {
-      console.warn('Live search fallback to curated index:', e);
     }
 
-    // Tier 3: High-Quality Curated Keyword Matching Fallback
+    // 3. Match from local catalog
     const qLower = q.toLowerCase();
-    const matched = CuratedDatabase.homeFeed.filter(v => 
+    const matched = MasterCatalog.homeFeed.filter(v => 
       v.title.toLowerCase().includes(qLower) || (v.channel && v.channel.name.toLowerCase().includes(qLower))
     );
-
     if (matched.length > 0) return matched;
 
-    // Tier 4: Dynamic Query Result Card
-    return [
-      {
-        id: 'dyn_1_' + encodeURIComponent(q),
-        ytId: 'dQw4w9WgXcQ',
-        title: `${q} - أفضل نتيجة استعراض وبحث يوتيوب 4K`,
-        channel: { name: `قناة ${q}`, avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop', subs: '1.2M مشترك' },
-        duration: '15:30',
-        views: '2.4M مشاهدة',
-        uploadedAt: 'رائج',
-        quality: '1080p 60fps',
-        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
-      }
-    ];
+    // 4. Dynamic query card fallback
+    return [{
+      id: 'dyn_' + encodeURIComponent(q),
+      ytId: 'dQw4w9WgXcQ',
+      title: `${q} - استعراض وبحث يوتيوب 4K`,
+      channel: { name: `قناة ${q}`, avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop', subs: '1.2M مشترك' },
+      duration: '15:30',
+      views: '2.4M مشاهدة',
+      uploadedAt: 'رائج',
+      quality: '1080p 60fps',
+      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
+    }];
   },
 
-  // Fetch Live Trending
   async getTrending() {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
-      const res = await fetch(`${this.apiUrl}/trending?region=EG`, { signal: controller.signal });
-      clearTimeout(timeoutId);
+    for (const ep of this.apiEndpoints) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const res = await fetch(`${ep}/trending?region=EG`, { signal: controller.signal });
+        clearTimeout(timeoutId);
 
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          return data.filter(item => item.videoId).map(v => ({
-            id: 'trend_' + v.videoId,
-            ytId: v.videoId,
-            title: v.title,
-            channel: {
-              name: v.author || 'YouTube',
-              avatar: (v.authorThumbnails && v.authorThumbnails[0]) ? v.authorThumbnails[0].url : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop',
-              subs: 'رائج'
-            },
-            duration: CuratedDatabase.formatDuration(v.lengthSeconds),
-            views: CuratedDatabase.formatViews(v.viewCount || v.viewCountText),
-            uploadedAt: v.publishedText || 'اليوم',
-            quality: '1080p 60fps',
-            thumbnail: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`
-          }));
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            return data.filter(item => item.videoId).map(v => ({
+              id: 'trend_' + v.videoId,
+              ytId: v.videoId,
+              title: v.title,
+              channel: {
+                name: v.author || 'YouTube',
+                avatar: (v.authorThumbnails && v.authorThumbnails[0]) ? v.authorThumbnails[0].url : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop',
+                subs: 'رائج'
+              },
+              duration: MasterCatalog.formatDuration(v.lengthSeconds),
+              views: MasterCatalog.formatViews(v.viewCount || v.viewCountText),
+              uploadedAt: v.publishedText || 'اليوم',
+              quality: '1080p 60fps',
+              thumbnail: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`
+            }));
+          }
         }
-      }
-    } catch (e) {
-      console.warn('Trending fallback:', e);
+      } catch (e) {}
     }
-    return CuratedDatabase.homeFeed;
+    return MasterCatalog.homeFeed;
   }
 };
 
-// ==========================================================================
-// 3. STORAGE CONTROLLER (LIKES, HISTORY, SUBS, DOWNLOADS)
-// ==========================================================================
-const StorageManager = {
-  getLikes: () => JSON.parse(localStorage.getItem('nv_likes') || '[]'),
+// --- LOCAL STORAGE MANAGER ---
+const StorageStore = {
+  getLikes: () => JSON.parse(localStorage.getItem('loksha_likes') || '[]'),
   toggleLike: (video) => {
-    let likes = StorageManager.getLikes();
+    let likes = StorageStore.getLikes();
     const idx = likes.findIndex(v => v.id === video.id || v.ytId === video.ytId);
     let liked = false;
     if (idx >= 0) { likes.splice(idx, 1); liked = false; }
     else { likes.unshift(video); liked = true; }
-    localStorage.setItem('nv_likes', JSON.stringify(likes));
+    localStorage.setItem('loksha_likes', JSON.stringify(likes));
     return liked;
   },
-  getWatchLater: () => JSON.parse(localStorage.getItem('nv_wl') || '[]'),
+  getWatchLater: () => JSON.parse(localStorage.getItem('loksha_wl') || '[]'),
   toggleWatchLater: (video) => {
-    let wl = StorageManager.getWatchLater();
+    let wl = StorageStore.getWatchLater();
     const idx = wl.findIndex(v => v.id === video.id || v.ytId === video.ytId);
     let saved = false;
     if (idx >= 0) { wl.splice(idx, 1); saved = false; }
     else { wl.unshift(video); saved = true; }
-    localStorage.setItem('nv_wl', JSON.stringify(wl));
+    localStorage.setItem('loksha_wl', JSON.stringify(wl));
     return saved;
   },
-  getSubs: () => JSON.parse(localStorage.getItem('nv_subs') || '[]'),
+  getSubs: () => JSON.parse(localStorage.getItem('loksha_subs') || '[]'),
   toggleSub: (ch) => {
-    let subs = StorageManager.getSubs();
+    let subs = StorageStore.getSubs();
     const idx = subs.findIndex(s => s.name === ch.name);
     let subbed = false;
     if (idx >= 0) { subs.splice(idx, 1); subbed = false; }
     else { subs.unshift(ch); subbed = true; }
-    localStorage.setItem('nv_subs', JSON.stringify(subs));
+    localStorage.setItem('loksha_subs', JSON.stringify(subs));
     return subbed;
   },
-  getHistory: () => JSON.parse(localStorage.getItem('nv_hist') || '[]'),
+  getHistory: () => JSON.parse(localStorage.getItem('loksha_hist') || '[]'),
   addToHistory: (video) => {
-    let hist = StorageManager.getHistory().filter(v => v.id !== video.id && v.ytId !== video.ytId);
+    let hist = StorageStore.getHistory().filter(v => v.id !== video.id && v.ytId !== video.ytId);
     hist.unshift(video);
     if (hist.length > 40) hist.pop();
-    localStorage.setItem('nv_hist', JSON.stringify(hist));
+    localStorage.setItem('loksha_hist', JSON.stringify(hist));
   },
-  clearHistory: () => localStorage.setItem('nv_hist', '[]'),
-  getDownloads: () => JSON.parse(localStorage.getItem('nv_dl') || '[]'),
+  clearHistory: () => localStorage.setItem('loksha_hist', '[]'),
+  getDownloads: () => JSON.parse(localStorage.getItem('loksha_dl') || '[]'),
   addDownload: (video) => {
-    let dl = StorageManager.getDownloads();
+    let dl = StorageStore.getDownloads();
     if (!dl.some(d => d.ytId === video.ytId)) {
-      dl.unshift({ ...video, size: '48.5 MB' });
-      localStorage.setItem('nv_dl', JSON.stringify(dl));
+      dl.unshift({ ...video, size: '46.2 MB' });
+      localStorage.setItem('loksha_dl', JSON.stringify(dl));
     }
   },
-  clearDownloads: () => localStorage.setItem('nv_dl', '[]')
+  clearDownloads: () => localStorage.setItem('loksha_dl', '[]')
 };
 
-// ==========================================================================
-// 4. AMOLED FLOATING & EXPANDABLE PLAYER CONTROLLER
-// ==========================================================================
-const PlayerController = {
+// --- PLAYER CONTROLLER ---
+const PlayerApp = {
   currentVideo: null,
   isCollapsed: true,
 
   init() {
-    this.playerContainer = document.getElementById('playerContainer');
-    this.ytFrame = document.getElementById('ytEmbedFrame');
+    this.container = document.getElementById('playerContainer');
+    this.iframe = document.getElementById('ytEmbedFrame');
 
     document.getElementById('btnExpandFromThumb').addEventListener('click', () => this.expand());
     document.getElementById('btnExpandFromInfo').addEventListener('click', () => this.expand());
     document.getElementById('miniBtnExpand').addEventListener('click', () => this.expand());
     document.getElementById('btnCollapsePlayer').addEventListener('click', () => this.collapse());
-    
+
     document.getElementById('miniBtnClose').addEventListener('click', (e) => {
       e.stopPropagation();
       this.close();
@@ -1592,11 +1610,11 @@ const PlayerController = {
 
     document.getElementById('miniBtnPlayPause').addEventListener('click', (e) => {
       e.stopPropagation();
-      App.showToast('تشغيل / إيقاف مؤقت');
+      MainApp.showToast('تشغيل / إيقاف مؤقت');
     });
 
     document.getElementById('btnAudioModeToggle').addEventListener('click', () => {
-      App.showToast('وضع الاستماع الصوتي في الخلفية نشط 🎧');
+      MainApp.showToast('وضع الاستماع في الخلفية نشط 🎧');
     });
   },
 
@@ -1605,99 +1623,94 @@ const PlayerController = {
 
     document.getElementById('playerTopTitle').textContent = video.title;
     document.getElementById('miniPlayerTitle').textContent = video.title;
-    document.getElementById('miniPlayerChannel').textContent = video.channel ? video.channel.name : 'YouTube';
+    document.getElementById('miniPlayerChannel').textContent = video.channel ? video.channel.name : 'لوكشا تيوب';
     document.getElementById('miniPlayerThumb').src = video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`;
     document.getElementById('videoDetailTitle').textContent = video.title;
     document.getElementById('videoDetailViews').innerHTML = `<i class="fa-solid fa-eye"></i> ${video.views || 'مشاهدة'}`;
-    document.getElementById('videoDetailDate').innerHTML = `<i class="fa-solid fa-calendar"></i> ${video.uploadedAt || 'يوتيوب'}`;
+    document.getElementById('videoDetailDate').innerHTML = `<i class="fa-solid fa-calendar"></i> ${video.uploadedAt || 'مؤخراً'}`;
     
     if (video.channel) {
       document.getElementById('channelAvatarImg').src = video.channel.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop';
       document.getElementById('channelNameText').textContent = video.channel.name;
-      document.getElementById('channelSubsCount').textContent = video.channel.subs || 'مشترك';
+      document.getElementById('channelSubsCount').textContent = video.channel.subs || 'قناة موثقة';
     }
 
-    // Embed YouTube Video without Ads
     const vidId = video.ytId || 'linlz7-Pnvw';
-    this.ytFrame.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1`;
+    this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1`;
 
-    this.playerContainer.classList.add('active-player');
-    this.playerContainer.classList.remove('hidden');
+    this.container.classList.add('active-player');
+    this.container.classList.remove('hidden');
     this.expand();
 
-    StorageManager.addToHistory(video);
-    App.renderRelatedVideos(video.id || video.ytId);
-    App.updateActiveStates(video);
-    App.showToast('جاري التشغيل بدون إعلانات 🎬');
+    StorageStore.addToHistory(video);
+    MainApp.renderRelatedVideos(video.id || video.ytId);
+    MainApp.updateActiveStates(video);
+    MainApp.showToast('جاري التشغيل بدون أي إعلانات 🎬');
   },
 
   expand() {
     this.isCollapsed = false;
-    this.playerContainer.classList.remove('collapsed');
+    this.container.classList.remove('collapsed');
   },
 
   collapse() {
     this.isCollapsed = true;
-    this.playerContainer.classList.add('collapsed');
+    this.container.classList.add('collapsed');
   },
 
   close() {
-    this.ytFrame.src = '';
-    this.playerContainer.classList.remove('active-player');
-    this.playerContainer.classList.add('hidden');
+    this.iframe.src = '';
+    this.container.classList.remove('active-player');
+    this.container.classList.add('hidden');
     this.currentVideo = null;
   }
 };
 
-// ==========================================================================
-// 5. MAIN APP ORCHESTRATOR
-// ==========================================================================
-const App = {
+// --- MAIN APPLICATION ORCHESTRATOR ---
+const MainApp = {
   activeTab: 'tabHome',
-  cachedTrending: [],
+  trendingPool: [],
 
   async init() {
-    PlayerController.init();
+    PlayerApp.init();
     this.bindEvents();
-    this.loadSubscriptionsStories();
+    this.loadStories();
     this.loadHomeFeed();
     this.loadLibrary();
     this.loadDownloads();
 
-    // Fetch Live Trending in Background
-    this.cachedTrending = await YouTubeSearchEngine.getTrending();
-    if (this.cachedTrending && this.cachedTrending.length > 0) {
-      this.renderFeed('homeVideoFeed', this.cachedTrending);
-      this.renderFeed('trendingVideoFeed', this.cachedTrending);
+    // Fetch Live Trending
+    this.trendingPool = await LiveYouTubeEngine.getTrending();
+    if (this.trendingPool && this.trendingPool.length > 0) {
+      this.renderFeed('homeVideoFeed', this.trendingPool);
+      this.renderFeed('trendingVideoFeed', this.trendingPool);
     }
   },
 
   bindEvents() {
-    // Navigation
-    document.querySelectorAll('.nav-item').forEach(btn => {
+    // Navigation Tabs
+    document.querySelectorAll('.navbar-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => this.switchTab(btn.getAttribute('data-tab')));
     });
 
-    document.getElementById('btnLogo').addEventListener('click', () => this.switchTab('tabHome'));
+    document.getElementById('btnLogoHome').addEventListener('click', () => this.switchTab('tabHome'));
     document.getElementById('btnOpenDownloads').addEventListener('click', () => this.switchTab('tabDownloads'));
 
     // Category Chips
-    document.querySelectorAll('.chip').forEach(chip => {
+    document.querySelectorAll('.cat-pill').forEach(chip => {
       chip.addEventListener('click', () => {
-        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.cat-pill').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         const cat = chip.getAttribute('data-category');
         this.filterCategory(cat);
       });
     });
 
-    // SEARCH FUNCTIONALITY
+    // Search Logic
     const overlay = document.getElementById('searchOverlay');
     const input = document.getElementById('searchInput');
     const clearBtn = document.getElementById('btnClearSearch');
     const resultsContainer = document.getElementById('searchResultsList');
-    const suggestionsBox = document.getElementById('suggestionsBox');
-    const suggestionsList = document.getElementById('suggestionsList');
     const quickTags = document.getElementById('quickTagsSection');
 
     document.getElementById('btnOpenSearch').addEventListener('click', () => {
@@ -1709,16 +1722,13 @@ const App = {
       overlay.classList.remove('open');
       input.value = '';
       resultsContainer.innerHTML = '';
-      suggestionsBox.style.display = 'none';
       quickTags.style.display = 'block';
     });
 
     input.addEventListener('input', () => {
       const val = input.value.trim();
       clearBtn.style.display = val ? 'block' : 'none';
-      
       if (!val) {
-        suggestionsBox.style.display = 'none';
         quickTags.style.display = 'block';
         resultsContainer.innerHTML = '';
       }
@@ -1728,7 +1738,6 @@ const App = {
       input.value = '';
       clearBtn.style.display = 'none';
       resultsContainer.innerHTML = '';
-      suggestionsBox.style.display = 'none';
       quickTags.style.display = 'block';
       input.focus();
     });
@@ -1737,11 +1746,10 @@ const App = {
       const q = input.value.trim();
       if (!q) return;
 
-      suggestionsBox.style.display = 'none';
       quickTags.style.display = 'none';
-      resultsContainer.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="font-size:26px; color:var(--brand-red);"></i><br><br>جاري جلب نتائج يوتيوب الحية...</div>';
+      resultsContainer.innerHTML = '<div style="text-align:center; padding:35px; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="font-size:28px; color:var(--brand-red);"></i><br><br>جاري جلب نتائج البحث من يوتيوب...</div>';
 
-      const results = await YouTubeSearchEngine.search(q);
+      const results = await LiveYouTubeEngine.search(q);
       resultsContainer.innerHTML = '';
 
       if (!results || !results.length) {
@@ -1753,7 +1761,7 @@ const App = {
         const card = this.createCard(v);
         card.addEventListener('click', () => {
           overlay.classList.remove('open');
-          PlayerController.loadVideo(v);
+          PlayerApp.loadVideo(v);
         });
         resultsContainer.appendChild(card);
       });
@@ -1762,8 +1770,8 @@ const App = {
     document.getElementById('btnExecuteSearch').addEventListener('click', executeSearch);
     input.addEventListener('keyup', (e) => { if (e.key === 'Enter') executeSearch(); });
 
-    // Quick Search Tags
-    document.querySelectorAll('.search-tag').forEach(tag => {
+    // Search Tags
+    document.querySelectorAll('.search-pill-tag').forEach(tag => {
       tag.addEventListener('click', () => {
         input.value = tag.getAttribute('data-query');
         clearBtn.style.display = 'block';
@@ -1771,52 +1779,51 @@ const App = {
       });
     });
 
-    // Actions in Video Player
+    // Player Actions
     document.getElementById('btnLike').addEventListener('click', () => {
-      if (!PlayerController.currentVideo) return;
-      const liked = StorageManager.toggleLike(PlayerController.currentVideo);
+      if (!PlayerApp.currentVideo) return;
+      const liked = StorageStore.toggleLike(PlayerApp.currentVideo);
       document.getElementById('btnLike').classList.toggle('active', liked);
       this.showToast(liked ? 'تمت الإضافة للإعجابات 👍' : 'تمت إزالة الإعجاب');
       this.loadLibrary();
     });
 
     document.getElementById('btnSavePlaylist').addEventListener('click', () => {
-      if (!PlayerController.currentVideo) return;
-      const saved = StorageManager.toggleWatchLater(PlayerController.currentVideo);
+      if (!PlayerApp.currentVideo) return;
+      const saved = StorageStore.toggleWatchLater(PlayerApp.currentVideo);
       document.getElementById('btnSavePlaylist').classList.toggle('active', saved);
       this.showToast(saved ? 'تم الحفظ في المشاهدة لاحقاً 📌' : 'تمت الإزالة');
       this.loadLibrary();
     });
 
     document.getElementById('btnSubscribe').addEventListener('click', () => {
-      if (!PlayerController.currentVideo || !PlayerController.currentVideo.channel) return;
-      const ch = PlayerController.currentVideo.channel;
-      const subbed = StorageManager.toggleSub(ch);
+      if (!PlayerApp.currentVideo || !PlayerApp.currentVideo.channel) return;
+      const ch = PlayerApp.currentVideo.channel;
+      const subbed = StorageStore.toggleSub(ch);
       const btn = document.getElementById('btnSubscribe');
       btn.classList.toggle('subscribed', subbed);
       btn.innerHTML = subbed ? '<i class="fa-solid fa-check"></i><span>مشترك</span>' : '<i class="fa-solid fa-bell"></i><span>اشتراك</span>';
       this.showToast(subbed ? `تم الاشتراك في ${ch.name} 🔔` : `تم إلغاء الاشتراك`);
-      this.loadSubscriptionsStories();
+      this.loadStories();
     });
 
     document.getElementById('btnDownload').addEventListener('click', () => {
-      if (!PlayerController.currentVideo) return;
+      if (!PlayerApp.currentVideo) return;
       this.showToast('جاري حفظ الفيديو للمشاهدة بدون إنترنت...');
       setTimeout(() => {
-        StorageManager.addDownload(PlayerController.currentVideo);
+        StorageStore.addDownload(PlayerApp.currentVideo);
         this.showToast('تم اكتمال التنزيل بنجاح! متاح أوفلاين 📥');
         this.loadDownloads();
-      }, 800);
+      }, 700);
     });
 
     document.getElementById('btnShare').addEventListener('click', () => {
-      if (PlayerController.currentVideo && PlayerController.currentVideo.ytId) {
-        const link = `https://youtu.be/${PlayerController.currentVideo.ytId}`;
-        navigator.clipboard.writeText(link);
+      if (PlayerApp.currentVideo && PlayerApp.currentVideo.ytId) {
+        navigator.clipboard.writeText(`https://youtu.be/${PlayerApp.currentVideo.ytId}`);
         this.showToast('تم نسخ رابط الفيديو إلى الحافظة 🔗');
       } else {
         navigator.clipboard.writeText(window.location.href);
-        this.showToast('تم نسخ رابط التطبيق');
+        this.showToast('تم نسخ رابط لوكشا تيوب');
       }
     });
 
@@ -1828,13 +1835,13 @@ const App = {
 
     // Clear Storage Actions
     document.getElementById('btnClearHistory').addEventListener('click', () => {
-      StorageManager.clearHistory();
+      StorageStore.clearHistory();
       this.loadLibrary();
       this.showToast('تم مسح سجل المشاهدة');
     });
 
     document.getElementById('btnClearDownloads').addEventListener('click', () => {
-      StorageManager.clearDownloads();
+      StorageStore.clearDownloads();
       this.loadDownloads();
       this.showToast('تم مسح جميع التنزيلات');
     });
@@ -1842,45 +1849,45 @@ const App = {
 
   switchTab(tabId) {
     this.activeTab = tabId;
-    document.querySelectorAll('.nav-item').forEach(btn => {
+    document.querySelectorAll('.navbar-tab-btn').forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
     });
-    document.querySelectorAll('.tab-view').forEach(view => {
+    document.querySelectorAll('.tab-pane').forEach(view => {
       view.classList.toggle('active', view.id === tabId);
     });
 
     if (tabId === 'tabExplore') {
-      this.renderFeed('trendingVideoFeed', this.cachedTrending.length ? this.cachedTrending : CuratedDatabase.homeFeed);
+      this.renderFeed('trendingVideoFeed', this.trendingPool.length ? this.trendingPool : MasterCatalog.homeFeed);
     }
   },
 
   createCard(video) {
     const card = document.createElement('div');
-    card.className = 'video-card';
+    card.className = 'video-stream-card';
     card.innerHTML = `
-      <div class="video-thumb-container">
-        <img src="${video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`}" alt="${video.title}" class="video-thumb" loading="lazy">
-        <span class="duration-badge">${video.duration || 'فيديو'}</span>
-        <span class="quality-card-badge">${video.quality || '1080p'}</span>
-        <span class="sponsor-badge-indicator"><i class="fa-solid fa-shield"></i> بدون إعلانات</span>
+      <div class="card-thumbnail-box">
+        <img src="${video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`}" alt="${video.title}" class="card-thumbnail-img" loading="lazy">
+        <span class="badge-video-duration">${video.duration || 'فيديو'}</span>
+        <span class="badge-video-quality">${video.quality || '1080p'}</span>
+        <span class="badge-adfree-shield"><i class="fa-solid fa-shield"></i> بدون إعلانات</span>
       </div>
-      <div class="video-card-body">
-        <img src="${video.channel ? video.channel.avatar : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop'}" alt="" class="channel-avatar-sm">
-        <div class="video-card-meta">
-          <div class="video-card-title">${video.title}</div>
-          <div class="video-card-channel">
-            <span>${video.channel ? video.channel.name : 'YouTube'}</span>
-            <i class="fa-solid fa-circle-check verified-badge"></i>
+      <div class="card-details-row">
+        <img src="${video.channel ? video.channel.avatar : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop'}" alt="" class="channel-avatar-circle">
+        <div class="card-text-meta">
+          <div class="card-video-title">${video.title}</div>
+          <div class="card-channel-name-row">
+            <span>${video.channel ? video.channel.name : 'قناة يوتيوب'}</span>
+            <i class="fa-solid fa-circle-check icon-verified"></i>
           </div>
-          <div class="video-card-stats">
+          <div class="card-views-time-row">
             <span>${video.views || 'مشاهدة'}</span>
             <span>•</span>
-            <span>${video.uploadedAt || 'يوتيوب'}</span>
+            <span>${video.uploadedAt || 'مؤخراً'}</span>
           </div>
         </div>
       </div>
     `;
-    card.addEventListener('click', () => PlayerController.loadVideo(video));
+    card.addEventListener('click', () => PlayerApp.loadVideo(video));
     return card;
   },
 
@@ -1892,22 +1899,20 @@ const App = {
   },
 
   loadHomeFeed() {
-    this.renderFeed('homeVideoFeed', CuratedDatabase.homeFeed);
+    this.renderFeed('homeVideoFeed', MasterCatalog.homeFeed);
   },
 
   filterCategory(category) {
-    if (!category || category === 'all') {
-      this.renderFeed('homeVideoFeed', this.cachedTrending.length ? this.cachedTrending : CuratedDatabase.homeFeed);
-    } else if (category === 'trending') {
-      this.renderFeed('homeVideoFeed', this.cachedTrending.length ? this.cachedTrending : CuratedDatabase.homeFeed);
+    if (!category || category === 'all' || category === 'trending') {
+      this.renderFeed('homeVideoFeed', this.trendingPool.length ? this.trendingPool : MasterCatalog.homeFeed);
     } else {
-      const filtered = CuratedDatabase.homeFeed.filter(v => v.category === category);
-      this.renderFeed('homeVideoFeed', filtered.length ? filtered : CuratedDatabase.homeFeed);
+      const filtered = MasterCatalog.homeFeed.filter(v => v.category === category);
+      this.renderFeed('homeVideoFeed', filtered.length ? filtered : MasterCatalog.homeFeed);
     }
   },
 
-  loadSubscriptionsStories() {
-    const row = document.getElementById('subsStoriesList');
+  loadStories() {
+    const row = document.getElementById('homeStoriesBar');
     const fullRow = document.getElementById('subsFullChannelsList');
     const subsFeed = document.getElementById('subsVideoFeed');
     row.innerHTML = '';
@@ -1925,67 +1930,67 @@ const App = {
 
     channels.forEach(ch => {
       const item = document.createElement('div');
-      item.className = 'channel-story-item';
+      item.className = 'story-channel-card';
       item.innerHTML = `
-        <div class="story-avatar-ring">
-          <img src="${ch.avatar}" alt="${ch.name}" class="story-avatar-img">
+        <div class="story-ring-wrapper">
+          <img src="${ch.avatar}" alt="${ch.name}" class="story-channel-img">
         </div>
-        <div class="story-name">${ch.name}</div>
+        <div class="story-channel-label">${ch.name}</div>
       `;
       row.appendChild(item.cloneNode(true));
       fullRow.appendChild(item);
     });
 
-    CuratedDatabase.homeFeed.forEach(v => subsFeed.appendChild(this.createCard(v)));
+    MasterCatalog.homeFeed.forEach(v => subsFeed.appendChild(this.createCard(v)));
   },
 
   loadLibrary() {
-    const hist = StorageManager.getHistory();
+    const hist = StorageStore.getHistory();
     const carousel = document.getElementById('historyCarousel');
     carousel.innerHTML = '';
 
     if (!hist.length) {
-      carousel.innerHTML = '<div style="color:var(--text-muted); padding:10px; font-size:0.8rem;">لا يوجد سجل مشاهدة بعد. ابدأ بمشاهدة مقاطعك المفضلة!</div>';
+      carousel.innerHTML = '<div style="color:var(--text-muted); padding:10px; font-size:0.8rem;">لا يوجد سجل مشاهدة بعد.</div>';
     } else {
       hist.forEach(v => {
         const d = document.createElement('div');
         d.style.cssText = 'width: 140px; flex-shrink: 0; cursor: pointer;';
         d.innerHTML = `
-          <div style="aspect-ratio:16/9; border-radius:8px; overflow:hidden; background:#222; margin-bottom:4px;">
+          <div style="aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#1c1d29; margin-bottom:5px;">
             <img src="${v.thumbnail || `https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg`}" style="width:100%; height:100%; object-fit:cover;">
           </div>
-          <div style="font-size:0.76rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${v.title}</div>
+          <div style="font-size:0.78rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${v.title}</div>
         `;
-        d.addEventListener('click', () => PlayerController.loadVideo(v));
+        d.addEventListener('click', () => PlayerApp.loadVideo(v));
         carousel.appendChild(d);
       });
     }
 
-    document.getElementById('likedCountText').textContent = `${StorageManager.getLikes().length} فيديوهات`;
-    document.getElementById('watchLaterCountText').textContent = `${StorageManager.getWatchLater().length} فيديوهات`;
+    document.getElementById('likedCountText').textContent = `${StorageStore.getLikes().length} فيديوهات`;
+    document.getElementById('watchLaterCountText').textContent = `${StorageStore.getWatchLater().length} فيديوهات`;
   },
 
   loadDownloads() {
     const list = document.getElementById('downloadsList');
-    const dl = StorageManager.getDownloads();
+    const dl = StorageStore.getDownloads();
     list.innerHTML = '';
 
     if (!dl.length) {
-      list.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-muted);"><i class="fa-solid fa-circle-down" style="font-size:30px; margin-bottom:10px; color:var(--brand-red);"></i><br>لا توجد تنزيلات محلية بعد. اضغط على زر "تنزيل" عند تشغيل أي فيديو.</div>';
+      list.innerHTML = '<div style="text-align:center; padding:35px; color:var(--text-muted);"><i class="fa-solid fa-circle-down" style="font-size:32px; margin-bottom:12px; color:var(--brand-red);"></i><br>لا توجد تنزيلات محلية بعد. اضغط على زر "تنزيل" في أي فيديو لحفظه.</div>';
       return;
     }
 
     dl.forEach(d => {
       const item = document.createElement('div');
-      item.style.cssText = 'display:flex; gap:10px; padding:10px; background:var(--bg-surface-1); border-radius:10px; align-items:center; cursor:pointer;';
+      item.style.cssText = 'display:flex; gap:12px; padding:12px; background:var(--bg-card-1); border-radius:14px; align-items:center; cursor:pointer; border:1px solid var(--border-subtle);';
       item.innerHTML = `
-        <img src="${d.thumbnail || `https://img.youtube.com/vi/${d.ytId}/hqdefault.jpg`}" style="width:80px; aspect-ratio:16/9; border-radius:6px; object-fit:cover;">
+        <img src="${d.thumbnail || `https://img.youtube.com/vi/${d.ytId}/hqdefault.jpg`}" style="width:84px; aspect-ratio:16/9; border-radius:8px; object-fit:cover;">
         <div style="flex:1; min-width:0;">
-          <div style="font-size:0.82rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.title}</div>
-          <div style="font-size:0.72rem; color:var(--accent-green); margin-top:2px;"><i class="fa-solid fa-check"></i> جاهز أوفلاين • ${d.size}</div>
+          <div style="font-size:0.84rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.title}</div>
+          <div style="font-size:0.74rem; color:var(--accent-green); margin-top:3px;"><i class="fa-solid fa-check"></i> جاهز أوفلاين • ${d.size}</div>
         </div>
       `;
-      item.addEventListener('click', () => PlayerController.loadVideo(d));
+      item.addEventListener('click', () => PlayerApp.loadVideo(d));
       list.appendChild(item);
     });
   },
@@ -1993,15 +1998,15 @@ const App = {
   renderRelatedVideos(currentId) {
     const feed = document.getElementById('relatedVideosFeed');
     feed.innerHTML = '';
-    const pool = this.cachedTrending.length ? this.cachedTrending : CuratedDatabase.homeFeed;
+    const pool = this.trendingPool.length ? this.trendingPool : MasterCatalog.homeFeed;
     const related = pool.filter(v => v.id !== currentId && v.ytId !== currentId);
     related.forEach(v => feed.appendChild(this.createCard(v)));
   },
 
   updateActiveStates(video) {
-    const liked = StorageManager.getLikes().some(v => v.id === video.id || v.ytId === video.ytId);
-    const saved = StorageManager.getWatchLater().some(v => v.id === video.id || v.ytId === video.ytId);
-    const subbed = video.channel ? StorageManager.getSubs().some(s => s.name === video.channel.name) : false;
+    const liked = StorageStore.getLikes().some(v => v.id === video.id || v.ytId === video.ytId);
+    const saved = StorageStore.getWatchLater().some(v => v.id === video.id || v.ytId === video.ytId);
+    const subbed = video.channel ? StorageStore.getSubs().some(s => s.name === video.channel.name) : false;
 
     document.getElementById('btnLike').classList.toggle('active', liked);
     document.getElementById('btnSavePlaylist').classList.toggle('active', saved);
@@ -2019,7 +2024,7 @@ const App = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => App.init());
+document.addEventListener('DOMContentLoaded', () => MainApp.init());
   </script>
 </body>
 </html>
