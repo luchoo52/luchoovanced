@@ -6,7 +6,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>لوكشا تيوب | LokshaTube</title>
+  <title>لوكشا تيوب | LokshaTube - الشرق الأوسط</title>
 
   <!-- Auto Unregister Old Service Worker & Clear Storage -->
   <script>
@@ -36,7 +36,7 @@
   
   <style>
 /* ==========================================================================
-   OFFICIAL YOUTUBE PREMIUM / AMOLED DESIGN SYSTEM
+   OFFICIAL YOUTUBE PREMIUM / AMOLED DESIGN SYSTEM (MIDDLE EAST EDITION)
    ========================================================================== */
 :root {
   --bg-pure-black: #0f0f0f;
@@ -196,14 +196,17 @@ img {
   color: var(--yt-red);
 }
 
-.brand-vanced-pill {
-  font-family: var(--font-english);
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: var(--text-muted);
+.region-flag-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
   background: var(--bg-surface-2);
-  padding: 2px 5px;
-  border-radius: 4px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border-subtle);
 }
 
 .top-bar-actions {
@@ -257,7 +260,7 @@ img {
 }
 
 /* ==========================================================================
-   3. CLEAN CHANNEL STORIES BAR
+   3. CLEAN ARAB CHANNELS STORIES BAR
    ========================================================================== */
 .stories-horizontal-bar {
   display: flex;
@@ -275,12 +278,12 @@ img {
   gap: 5px;
   cursor: pointer;
   flex-shrink: 0;
-  width: 58px;
+  width: 62px;
 }
 
 .story-avatar-wrapper {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   padding: 2px;
   background: linear-gradient(135deg, var(--yt-red), #9d4edd);
@@ -298,6 +301,7 @@ img {
 
 .story-label-text {
   font-size: 0.7rem;
+  font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -991,12 +995,13 @@ img {
     <div class="mobile-device-shell">
       
       <!-- ====================================================================
-           1. TOP APP BAR
+           1. TOP APP BAR (MIDDLE EAST EDITION)
            ==================================================================== -->
       <header class="youtube-top-bar">
         <div class="brand-logo-wrap" id="btnTopLogoHome">
           <div class="brand-play-icon"><i class="fa-solid fa-play"></i></div>
-          <div class="brand-name-title">لوكشا<span>تيوب</span> <span class="brand-vanced-pill">PRO</span></div>
+          <div class="brand-name-title">لوكشا<span>تيوب</span></div>
+          <span class="region-flag-pill" id="btnChangeRegion" title="تغيير الدولة">🇪🇬 مصر</span>
         </div>
         <div class="top-bar-actions">
           <button class="icon-btn-round" id="btnOpenSearchOverlay" title="بحث"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -1011,11 +1016,11 @@ img {
       <div class="category-filter-chips" id="categoryChipsBar">
         <button class="category-chip-pill active" data-category="all">الكل</button>
         <button class="category-chip-pill" data-category="quran">📖 قرآن كريم</button>
-        <button class="category-chip-pill" data-category="music">🎵 موسيقى</button>
-        <button class="category-chip-pill" data-category="sports">⚽ ريال مدريد والكرة</button>
+        <button class="category-chip-pill" data-category="music">🎵 طرب وموسيقى</button>
+        <button class="category-chip-pill" data-category="podcasts">🎙️ بودكاست وبرامج</button>
         <button class="category-chip-pill" data-category="tech">💻 برمجة وتقنية</button>
-        <button class="category-chip-pill" data-category="podcasts">🎙️ بودكاست فنجان</button>
-        <button class="category-chip-pill" data-category="gaming">🎮 ألعاب</button>
+        <button class="category-chip-pill" data-category="sports">⚽ مباريات ورياضة</button>
+        <button class="category-chip-pill" data-category="gaming">🎮 ألعاب وترفيه</button>
       </div>
 
       <!-- ====================================================================
@@ -1025,23 +1030,24 @@ img {
         <div class="search-top-header">
           <button class="icon-btn-round" id="btnCloseSearchOverlay"><i class="fa-solid fa-arrow-right"></i></button>
           <div class="search-input-container">
-            <input type="text" id="searchInputElement" placeholder="ابحث في يوتيوب أو الصق رابط فيديو..." autocomplete="off">
+            <input type="text" id="searchInputElement" placeholder="ابحث عن أي فيديو عربي أو الصق رابط..." autocomplete="off">
             <button class="btn-clear-search-input" id="btnClearSearchText"><i class="fa-solid fa-xmark"></i></button>
           </div>
           <button class="btn-search-trigger" id="btnExecuteSearchQuery"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
         <div class="search-results-area">
-          <!-- Popular Tags -->
+          <!-- Popular Tags in Middle East -->
           <div class="trending-searches-box" id="trendingSearchesBox">
-            <div class="trending-searches-title"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> الأكثر بحثاً وتداولاً:</div>
+            <div class="trending-searches-title"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> الأكثر بحثاً في الشرق الأوسط:</div>
             <div class="chips-cloud-flex">
               <span class="search-chip-tag" data-q="سورة الكهف ماهر المعيقلي"><i class="fa-solid fa-book-quran"></i> سورة الكهف</span>
               <span class="search-chip-tag" data-q="عمرو دياب تملي معاك"><i class="fa-solid fa-music"></i> عمرو دياب</span>
-              <span class="search-chip-tag" data-q="Real Madrid best goals"><i class="fa-solid fa-futbol"></i> ريال مدريد</span>
+              <span class="search-chip-tag" data-q="الدحيح"><i class="fa-solid fa-lightbulb"></i> الدحيح</span>
               <span class="search-chip-tag" data-q="بودكاست فنجان ثمانية"><i class="fa-solid fa-microphone"></i> بودكاست فنجان</span>
-              <span class="search-chip-tag" data-q="Elzero Web School"><i class="fa-solid fa-code"></i> البرمجة</span>
-              <span class="search-chip-tag" data-q="lofi hip hop radio"><i class="fa-solid fa-headphones"></i> Lo-Fi تركيز</span>
+              <span class="search-chip-tag" data-q="Elzero Web School"><i class="fa-solid fa-code"></i> البرمجة والذكاء الاصطناعي</span>
+              <span class="search-chip-tag" data-q="أهداف ريال مدريد جنون دوري أبطال أوروبا"><i class="fa-solid fa-futbol"></i> ريال مدريد</span>
+              <span class="search-chip-tag" data-q="كايروكي روما"><i class="fa-solid fa-guitar"></i> كايروكي</span>
             </div>
           </div>
 
@@ -1063,7 +1069,7 @@ img {
 
         <!-- TAB 2: TRENDING -->
         <section class="tab-pane-view" id="tabTrending">
-          <div style="padding:12px 14px 4px 14px; font-weight:700; font-size:0.95rem;"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> المحتوى الأكثر رواجاً</div>
+          <div style="padding:12px 14px 4px 14px; font-weight:700; font-size:0.95rem;"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> المحتوى الأكثر رواجاً في الشرق الأوسط</div>
           <div id="trendingVideosFeed" style="display:flex; flex-direction:column;"></div>
         </section>
 
@@ -1151,7 +1157,7 @@ img {
               <span>•</span>
               <span id="fullPlayerDateText">مؤخراً</span>
               <span>•</span>
-              <span style="color:var(--accent-cyan);"><i class="fa-solid fa-circle-check"></i> بجودة 1080p / 4K</span>
+              <span style="color:var(--accent-cyan);"><i class="fa-solid fa-circle-check"></i> بجودة فائقة 1080p / 4K</span>
             </div>
 
             <!-- Channel Row -->
@@ -1217,10 +1223,25 @@ img {
         </button>
       </nav>
 
-      <!-- Settings Sheet Modal -->
+      <!-- Settings & Region Sheet Modal -->
       <div class="sheet-modal-backdrop" id="settingsModalSheet">
         <div class="sheet-modal-body">
           <div class="sheet-modal-heading"><i class="fa-solid fa-sliders" style="color:var(--yt-red);"></i> إعدادات لوكشا تيوب</div>
+          
+          <div class="sheet-item-row">
+            <div>
+              <div style="font-weight:700; color:#fff;">الدولة والمنطقة</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">محتوى وبحث الشرق الأوسط</div>
+            </div>
+            <select id="regionSelectDropdown" style="background:var(--bg-surface-3); color:#fff; border:1px solid var(--border-subtle); padding:6px 10px; border-radius:8px; font-weight:700;">
+              <option value="EG" selected>🇪🇬 مصر</option>
+              <option value="SA">🇸🇦 السعودية</option>
+              <option value="AE">🇦🇪 الإمارات</option>
+              <option value="MA">🇲🇦 المغرب</option>
+              <option value="ME">🌍 الشرق الأوسط عام</option>
+            </select>
+          </div>
+
           <div class="sheet-item-row">
             <div>
               <div style="font-weight:700; color:#fff;">تخطي الإعلانات والرعاة (SponsorBlock)</div>
@@ -1228,6 +1249,7 @@ img {
             </div>
             <div style="color:var(--accent-green); font-weight:700;">مُفعّل دائماً ✓</div>
           </div>
+
           <div class="sheet-item-row">
             <div>
               <div style="font-weight:700; color:#fff;">التشغيل في الخلفية والشاشة مغلقة</div>
@@ -1235,6 +1257,7 @@ img {
             </div>
             <div style="color:var(--accent-green); font-weight:700;">مُفعّل ✓</div>
           </div>
+
           <div class="sheet-item-row">
             <div>
               <div style="font-weight:700; color:#fff;">جودة البث الافتراضية</div>
@@ -1242,6 +1265,7 @@ img {
             </div>
             <div style="color:var(--accent-cyan); font-weight:700;">4K Ultra HD</div>
           </div>
+
           <button class="category-chip-pill" id="btnCloseSettingsModal" style="background-color:var(--yt-red); color:#fff; font-weight:700; padding:12px; justify-content:center; border-radius:10px; margin-top:4px;">إغلاق</button>
         </div>
       </div>
@@ -1256,10 +1280,10 @@ img {
   </div>
 
   <!-- ====================================================================
-       7. JAVASCRIPT APP LOGIC
+       7. JAVASCRIPT APP LOGIC (MIDDLE EAST LOCALIZED)
        ==================================================================== -->
   <script>
-// --- VERIFIED HIGH DEFINITION STREAM DATABASE WITH 100% WORKING EMBEDS & REAL LOGOS ---
+// --- AUTHENTIC ARAB & MIDDLE EAST DATABASE ---
 const MasterCatalog = {
   feed: [
     {
@@ -1296,15 +1320,15 @@ const MasterCatalog = {
       thumbnail: 'https://img.youtube.com/vi/EgmXTmj62ic/hqdefault.jpg'
     },
     {
-      id: 'v_realmadrid_moments',
-      ytId: 'IeUcyglJiZw',
-      title: 'جنون ريال مدريد: أفضل الأهداف واللحظات التاريخية وأعظم ريمونتادا في دوري أبطال أوروبا',
-      channel: { name: 'MadridistaTV | ريال مدريد', avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/120px-Real_Madrid_CF.svg.png', subs: '14.2M مشترك' },
-      duration: '14:20',
-      views: '8.4M مشاهدة',
-      uploadedAt: 'مؤخراً',
-      category: 'sports',
-      thumbnail: 'https://img.youtube.com/vi/IeUcyglJiZw/hqdefault.jpg'
+      id: 'v_thmanyah_fnjan',
+      ytId: 'pJ0auP7dbcY',
+      title: 'بودكاست فنجان: كيف تبني مستقبلك المالي وتستثمر بذكاء؟ | ثمانية',
+      channel: { name: 'ثمانية / Thmanyah', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&auto=format&fit=crop', subs: '5.9M مشترك' },
+      duration: '1:32:40',
+      views: '3.8M مشاهدة',
+      uploadedAt: 'منذ أسبوع',
+      category: 'podcasts',
+      thumbnail: 'https://img.youtube.com/vi/pJ0auP7dbcY/hqdefault.jpg'
     },
     {
       id: 'v_elzero_roadmap',
@@ -1318,15 +1342,15 @@ const MasterCatalog = {
       thumbnail: 'https://img.youtube.com/vi/LdJbP0NbFRw/hqdefault.jpg'
     },
     {
-      id: 'v_thmanyah_fnjan',
-      ytId: 'pJ0auP7dbcY',
-      title: 'بودكاست فنجان: كيف تبني مستقبلك المالي وتستثمر بذكاء؟ | ثمانية',
-      channel: { name: 'ثمانية / Thmanyah', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&auto=format&fit=crop', subs: '5.9M مشترك' },
-      duration: '1:32:40',
-      views: '3.8M مشاهدة',
-      uploadedAt: 'منذ أسبوع',
-      category: 'podcasts',
-      thumbnail: 'https://img.youtube.com/vi/pJ0auP7dbcY/hqdefault.jpg'
+      id: 'v_realmadrid_moments',
+      ytId: 'IeUcyglJiZw',
+      title: 'جنون ريال مدريد: أفضل الأهداف واللحظات التاريخية وأعظم ريمونتادا في دوري أبطال أوروبا',
+      channel: { name: 'MadridistaTV | ريال مدريد', avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/120px-Real_Madrid_CF.svg.png', subs: '14.2M مشترك' },
+      duration: '14:20',
+      views: '8.4M مشاهدة',
+      uploadedAt: 'مؤخراً',
+      category: 'sports',
+      thumbnail: 'https://img.youtube.com/vi/IeUcyglJiZw/hqdefault.jpg'
     },
     {
       id: 'v_tech_faisal',
@@ -1375,12 +1399,18 @@ const MasterCatalog = {
   }
 };
 
-// --- MULTI-TIER LIVE SEARCH ENGINE ---
+// --- MIDDLE EAST LOCALIZED SEARCH SERVICE ---
 const SearchService = {
+  currentRegion: localStorage.getItem('loksha_region') || 'EG',
   apiEndpoints: [
     'https://invidious.f5.si/api/v1',
     'https://invidious.flokinet.to/api/v1'
   ],
+
+  setRegion(code) {
+    this.currentRegion = code;
+    localStorage.setItem('loksha_region', code);
+  },
 
   parseDirectId(q) {
     if (!q) return null;
@@ -1409,12 +1439,13 @@ const SearchService = {
       }];
     }
 
-    // 2. Live API
+    // 2. Arabic & Middle East Localized Live Search
     for (const ep of this.apiEndpoints) {
       try {
         const ctrl = new AbortController();
         const tid = setTimeout(() => ctrl.abort(), 3500);
-        const res = await fetch(`${ep}/search?q=${encodeURIComponent(q)}&type=video`, { signal: ctrl.signal });
+        const regionParam = this.currentRegion === 'ME' ? 'EG' : this.currentRegion;
+        const res = await fetch(`${ep}/search?q=${encodeURIComponent(q)}&hl=ar&region=${regionParam}&type=video`, { signal: ctrl.signal });
         clearTimeout(tid);
 
         if (res.ok) {
@@ -1456,6 +1487,38 @@ const SearchService = {
       uploadedAt: 'رائج',
       thumbnail: 'https://img.youtube.com/vi/EgmXTmj62ic/hqdefault.jpg'
     }];
+  },
+
+  async getTrending() {
+    const r = this.currentRegion === 'ME' ? 'EG' : this.currentRegion;
+    for (const ep of this.apiEndpoints) {
+      try {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 3500);
+        const res = await fetch(`${ep}/trending?region=${r}&hl=ar`, { signal: ctrl.signal });
+        clearTimeout(tid);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            return data.filter(v => v.type === 'video' && v.videoId).map(v => ({
+              id: 'trend_' + v.videoId,
+              ytId: v.videoId,
+              title: v.title,
+              channel: {
+                name: v.author || 'قناة رائدة',
+                avatar: (v.authorThumbnails && v.authorThumbnails[0]) ? v.authorThumbnails[0].url : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop',
+                subs: 'قناة موثقة'
+              },
+              duration: MasterCatalog.formatDuration(v.lengthSeconds),
+              views: MasterCatalog.formatViews(v.viewCount || v.viewCountText),
+              uploadedAt: v.publishedText || 'رائج في الشرق الأوسط',
+              thumbnail: `https://img.youtube.com/vi/${v.videoId}/hqdefault.jpg`
+            }));
+          }
+        }
+      } catch (e) {}
+    }
+    return MasterCatalog.feed;
   }
 };
 
@@ -1557,7 +1620,7 @@ const PlayerEngine = {
     }
 
     const vidId = video.ytId || 'R4yGcywnRbA';
-    this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1`;
+    this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&hl=ar&gl=EG&cc_lang_pref=ar`;
 
     this.container.classList.add('active-player');
     this.container.classList.remove('hidden');
@@ -1598,6 +1661,16 @@ const App = {
     this.loadHomeFeed();
     this.loadLibrary();
     this.loadDownloads();
+    this.syncRegionUI();
+  },
+
+  syncRegionUI() {
+    const r = SearchService.currentRegion;
+    const dropdown = document.getElementById('regionSelectDropdown');
+    const flagBtn = document.getElementById('btnChangeRegion');
+    if (dropdown) dropdown.value = r;
+    const names = { 'EG': '🇪🇬 مصر', 'SA': '🇸🇦 السعودية', 'AE': '🇦🇪 الإمارات', 'MA': '🇲🇦 المغرب', 'ME': '🌍 الشرق الأوسط' };
+    if (flagBtn) flagBtn.textContent = names[r] || '🇪🇬 مصر';
   },
 
   bindEvents() {
@@ -1608,6 +1681,17 @@ const App = {
 
     document.getElementById('btnTopLogoHome').addEventListener('click', () => this.switchTab('tabHome'));
     document.getElementById('btnOpenDownloadsQuick').addEventListener('click', () => this.switchTab('tabDownloads'));
+
+    // Region Dropdown Change
+    document.getElementById('regionSelectDropdown').addEventListener('change', (e) => {
+      SearchService.setRegion(e.target.value);
+      this.syncRegionUI();
+      this.showToast('تم تحديث منطقة المحتوى والبحث بنجاح 🌍');
+    });
+
+    document.getElementById('btnChangeRegion').addEventListener('click', () => {
+      document.getElementById('settingsModalSheet').classList.add('open');
+    });
 
     // Category chips
     document.querySelectorAll('.category-chip-pill').forEach(pill => {
@@ -1660,7 +1744,7 @@ const App = {
       if (!q) return;
 
       trendingBox.style.display = 'none';
-      searchFeed.innerHTML = '<div style="text-align:center; padding:35px; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="font-size:26px; color:var(--yt-red);"></i><br><br>جاري جلب نتائج البحث...</div>';
+      searchFeed.innerHTML = '<div style="text-align:center; padding:35px; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin" style="font-size:26px; color:var(--yt-red);"></i><br><br>جاري جلب نتائج البحث من يوتيوب الشرق الأوسط...</div>';
 
       const results = await SearchService.search(q);
       searchFeed.innerHTML = '';
@@ -1770,6 +1854,11 @@ const App = {
 
     if (tabId === 'tabTrending') {
       this.renderFeed('trendingVideosFeed', MasterCatalog.feed);
+      SearchService.getTrending().then(list => {
+        if (list && list.length && this.activeTab === 'tabTrending') {
+          this.renderFeed('trendingVideosFeed', list);
+        }
+      });
     }
   },
 
@@ -1831,10 +1920,11 @@ const App = {
     const channels = [
       { name: 'القرآن الكريم', avatar: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=120&auto=format&fit=crop' },
       { name: 'مشاري العفاسي', avatar: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=120&auto=format&fit=crop' },
-      { name: 'Mazzika / عمرو دياب', avatar: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop' },
-      { name: 'MadridistaTV', avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/120px-Real_Madrid_CF.svg.png' },
+      { name: 'عمرو دياب', avatar: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120&auto=format&fit=crop' },
       { name: 'Elzero Web', avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop' },
-      { name: 'ثمانية', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&auto=format&fit=crop' }
+      { name: 'ثمانية / فنجان', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=120&auto=format&fit=crop' },
+      { name: 'MadridistaTV', avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/120px-Real_Madrid_CF.svg.png' },
+      { name: 'فيصل السيف', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop' }
     ];
 
     channels.forEach(ch => {
