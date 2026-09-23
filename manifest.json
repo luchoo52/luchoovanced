@@ -1,21 +1,27 @@
 {
-  "name": "NovaVance Pro",
-  "short_name": "NovaVance",
+  "name": "لوكشا تيوب | LokshaTube",
+  "short_name": "لوكشا",
+  "description": "تطبيق لوكشا لمشاهدة كافة فيديوهات يوتيوب بدون إعلانات للشرق الأوسط",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#050508",
-  "theme_color": "#ff0033",
-  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#0f0f0f",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
   "icons": [
     {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=192&auto=format&fit=crop",
+      "src": "https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s192-c-k-c0x00ffffff-no-rj",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=512&auto=format&fit=crop",
+      "src": "https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
