@@ -1639,8 +1639,8 @@ img {
         <!-- TAB 2: TRENDING -->
         <section class="tab-pane-view" id="tabTrending">
           <div style="padding:12px 14px 6px 14px; display:flex; align-items:center; justify-content:space-between;">
-            <div style="font-weight:700; font-size:0.95rem;"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> رائج في الشرق الأوسط</div>
-            <button class="region-flag-pill" id="btnTrendingRefresh"><i class="fa-solid fa-rotate-right"></i> تحديث</button>
+            <div style="font-weight:700; font-size:1rem;"><i class="fa-solid fa-fire" style="color:var(--yt-red);"></i> 🔥 الفيديوهات الرائجة في مصر الآن</div>
+            <button class="region-flag-pill" id="btnTrendingRefresh"><i class="fa-solid fa-rotate-right"></i> تحديث مباشر</button>
           </div>
           <div id="trendingVideosFeed" style="display:flex; flex-direction:column;"></div>
           <div id="trendingInfiniteLoader" class="infinite-scroll-loader"><i class="fa-solid fa-spinner fa-spin"></i> <span>جاري تحميل المزيد...</span></div>
@@ -1719,22 +1719,7 @@ img {
 
           <!-- Video Stream Frame -->
           <div class="video-stream-iframe-box">
-            <iframe id="mainYtPlayerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <div class="embed-blocked-layer" id="embedBlockedFallbackLayer">
-              <div class="blocked-icon-circle"><i class="fa-solid fa-lock"></i></div>
-              <div class="blocked-title-text" id="blockedVideoTitle">محتوى محمي بحقوق البث الحصري</div>
-              <div class="blocked-desc-text" id="blockedVideoDesc">قامت القناة بتعطيل تشغيل هذا المقطع داخل التطبيقات الخارجية وفق حقوق البث التلفزيوني. يمكنك المشاهدة الفورية مباشرة بضغطة زر:</div>
-              <div style="display:flex; flex-direction:column; gap:8px; width:100%; max-width:280px; align-items:center;">
-                <a href="#" id="btnOpenBlockedInYt" target="_blank" class="btn-play-restricted-direct" style="width:100%; justify-content:center;">
-                  <i class="fa-brands fa-youtube" style="font-size:18px;"></i>
-                  <span>مشاهدة الفيديو على YouTube</span>
-                </a>
-                <button type="button" id="btnTryAltEmbedStream" class="category-chip-pill" style="width:100%; justify-content:center; padding:8px 14px; font-size:0.76rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:var(--accent-cyan); cursor:pointer;">
-                  <i class="fa-solid fa-server"></i>
-                  <span>تجربة خادم البث المباشر البديل</span>
-                </button>
-              </div>
-            </div>
+            <iframe id="mainYtPlayerIframe" src="" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" allowfullscreen></iframe>
           </div>
 
           <!-- Video Details Card -->
@@ -1876,6 +1861,50 @@ img {
 const MasterCatalog = {
   feed: [
     {
+      id: 'v_alahly_highlights',
+      ytId: 'IeUcyglJiZw',
+      title: 'أهداف وملخص مباراة الأهلي والزمالك - قمة الدوري المصري الممتاز 2026',
+      channel: { id: 'UC_koraplus', name: 'Kora Plus | كورة بلس مصر', avatar: 'https://yt3.ggpht.com/007YsJGAI1V1TdrVuZY0w01ZZEjwPw7HgkEb5DWudahx1-VFVZrE9-idCIlZufbzwBmKSA0w=s512-c-k-c0x00ffffff-no-rj', subs: '3.8M مشترك' },
+      duration: '12:40',
+      views: '4.2M مشاهدة',
+      uploadedAt: 'اليوم',
+      category: 'sports',
+      thumbnail: 'https://img.youtube.com/vi/IeUcyglJiZw/hqdefault.jpg'
+    },
+    {
+      id: 'v_wegz_bakht',
+      ytId: 'EgmXTmj62ic',
+      title: 'ويجز - البخت (فيديو كليب رسمي) | Wegz - ElBakht',
+      channel: { id: 'UC_wegz', name: 'Wegz - ويجز', avatar: 'https://yt3.ggpht.com/Wl84H0s1fL03s064q2h8l2c6_3yQ2rK-3a7l-8=s512-c-k-c0x00ffffff-no-rj', subs: '4.5M مشترك' },
+      duration: '03:55',
+      views: '280M مشاهدة',
+      uploadedAt: 'رائج في مصر',
+      category: 'music',
+      thumbnail: 'https://img.youtube.com/vi/EgmXTmj62ic/hqdefault.jpg'
+    },
+    {
+      id: 'v_da7ee7_pharaohs',
+      ytId: '6Q9eK-KJlyE',
+      title: 'الدحيح | لغز بناء الأهرامات وأعظم أسرار الفراعنة في مصر القديمة',
+      channel: { id: 'UCrWvhVmt0Qac3FgsNQK0bBQ', name: 'Da7ee7 - الدحيح', avatar: 'https://yt3.ggpht.com/SDLFB659XZjI9SeVFhJDS1Gj7mAZsg1_8-xLR5rTdW_ud41zkS3taOXTs7N5qGkPSgG1nSop=s512-c-k-c0x00ffffff-no-rj', subs: '3.1M مشترك' },
+      duration: '21:30',
+      views: '3.6M مشاهدة',
+      uploadedAt: 'منذ يومين',
+      category: 'podcasts',
+      thumbnail: 'https://img.youtube.com/vi/6Q9eK-KJlyE/hqdefault.jpg'
+    },
+    {
+      id: 'v_cairokee_roma',
+      ytId: 'LdJbP0NbFRw',
+      title: 'كايروكي - بسرح وأتوه | Cairokee - Basrah W Atooh (الألبوم الرسمي)',
+      channel: { id: 'UC_cairokee', name: 'Cairokee - كايروكي', avatar: 'https://yt3.ggpht.com/ZI3AaaDaAt3nBKbw5wytoZ3vsQJRSuAvb-a3kYk7tnBb8GlettafQO3zE_F_o4TKm0HJUDLyXQ=s512-c-k-c0x00ffffff-no-rj', subs: '5.1M مشترك' },
+      duration: '04:15',
+      views: '95M مشاهدة',
+      uploadedAt: 'رائج في مصر',
+      category: 'music',
+      thumbnail: 'https://img.youtube.com/vi/LdJbP0NbFRw/hqdefault.jpg'
+    },
+    {
       id: 'v_elzero_roadmap',
       ytId: 'LdJbP0NbFRw',
       title: 'خارطة طريق تعلم البرمجة وتطوير التطبيقات والذكاء الاصطناعي 2026',
@@ -1887,6 +1916,39 @@ const MasterCatalog = {
       thumbnail: 'https://img.youtube.com/vi/LdJbP0NbFRw/hqdefault.jpg'
     },
     {
+      id: 'v_salah_skills',
+      ytId: 'slnbUY0X_Ug',
+      title: 'جميع أهداف وسحر محمد صلاح مع ليفربول في الدوري الإنجليزي 2026',
+      channel: { id: 'UC_salah', name: 'Liverpool FC بالعربي', avatar: 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj', subs: '9.2M مشترك' },
+      duration: '16:10',
+      views: '5.8M مشاهدة',
+      uploadedAt: 'أمس',
+      category: 'sports',
+      thumbnail: 'https://img.youtube.com/vi/slnbUY0X_Ug/hqdefault.jpg'
+    },
+    {
+      id: 'v_minshawi_yusuf',
+      ytId: 'R4yGcywnRbA',
+      title: 'سورة يوسف كاملة تلاوة خاشعة نادرة تبكي القلوب | الشيخ محمد صديق المنشاوي',
+      channel: { id: 'UC_minshawi', name: 'إذاعة القرآن الكريم بمصر', avatar: 'https://yt3.ggpht.com/riv2etlZ_xL9iiobSY_WYw4NvxXVyq9dDbwsBmPcPbo4fslOLlzgZS1HyMWN7jHhimZ5QTAh=s512-c-k-c0x00ffffff-no-rj', subs: '6.4M مشترك' },
+      duration: '48:30',
+      views: '38M مشاهدة',
+      uploadedAt: 'تلاوة نادرة',
+      category: 'quran',
+      thumbnail: 'https://img.youtube.com/vi/R4yGcywnRbA/hqdefault.jpg'
+    },
+    {
+      id: 'v_amr_tamally',
+      ytId: 'EgmXTmj62ic',
+      title: 'عمرو دياب - يا قمر | Amr Diab - Ya Amar (ألبوم مكانك كامل)',
+      channel: { id: 'UCQfA3s_4zR1tYmF7_kL8w8A', name: 'عمرو دياب - Amr Diab', avatar: 'https://yt3.ggpht.com/Wl84H0s1fL03s064q2h8l2c6_3yQ2rK-3a7l-8=s512-c-k-c0x00ffffff-no-rj', subs: '7.8M مشترك' },
+      duration: '04:30',
+      views: '110M مشاهدة',
+      uploadedAt: 'رائج في مصر',
+      category: 'music',
+      thumbnail: 'https://img.youtube.com/vi/EgmXTmj62ic/hqdefault.jpg'
+    },
+    {
       id: 'v_thmanyah_fnjan',
       ytId: 'pJ0auP7dbcY',
       title: 'بودكاست فنجان: كيف تبني مستقبلك المالي وتستثمر بذكاء؟ | ثمانية',
@@ -1896,72 +1958,6 @@ const MasterCatalog = {
       uploadedAt: 'منذ أسبوع',
       category: 'podcasts',
       thumbnail: 'https://img.youtube.com/vi/pJ0auP7dbcY/hqdefault.jpg'
-    },
-    {
-      id: 'v_da7ee7_fear',
-      ytId: '6Q9eK-KJlyE',
-      title: 'الدحيح | الخوف من مواجهة الناس والمواقف المحرجة',
-      channel: { id: 'UCrWvhVmt0Qac3FgsNQK0bBQ', name: 'Da7ee7 - الدحيح', avatar: 'https://yt3.ggpht.com/SDLFB659XZjI9SeVFhJDS1Gj7mAZsg1_8-xLR5rTdW_ud41zkS3taOXTs7N5qGkPSgG1nSop=s512-c-k-c0x00ffffff-no-rj', subs: '3.1M مشترك' },
-      duration: '18:40',
-      views: '2.9M مشاهدة',
-      uploadedAt: 'منذ يومين',
-      category: 'podcasts',
-      thumbnail: 'https://img.youtube.com/vi/6Q9eK-KJlyE/hqdefault.jpg'
-    },
-    {
-      id: 'v_quran_kahf',
-      ytId: 'R4yGcywnRbA',
-      title: 'سورة الكهف كاملة تلاوة خاشعة بصوت الشيخ ماهر المعيقلي',
-      channel: { id: 'UCq9Q5q-3F_9bI9n6P2M-ZgA', name: 'الشيخ ماهر المعيقلي', avatar: 'https://yt3.ggpht.com/riv2etlZ_xL9iiobSY_WYw4NvxXVyq9dDbwsBmPcPbo4fslOLlzgZS1HyMWN7jHhimZ5QTAh=s512-c-k-c0x00ffffff-no-rj', subs: '12M مشترك' },
-      duration: '35:20',
-      views: '45M مشاهدة',
-      uploadedAt: 'سنة',
-      category: 'quran',
-      thumbnail: 'https://img.youtube.com/vi/R4yGcywnRbA/hqdefault.jpg'
-    },
-    {
-      id: 'v_amr_tamally',
-      ytId: 'EgmXTmj62ic',
-      title: 'عمرو دياب - تملي معاك | Amr Diab - Tamally Maak (فيديو كليب رسمي)',
-      channel: { id: 'UCQfA3s_4zR1tYmF7_kL8w8A', name: 'عمرو دياب - Amr Diab', avatar: 'https://yt3.ggpht.com/Wl84H0s1fL03s064q2h8l2c6_3yQ2rK-3a7l-8=s512-c-k-c0x00ffffff-no-rj', subs: '7.8M مشترك' },
-      duration: '04:30',
-      views: '330M مشاهدة',
-      uploadedAt: '2000',
-      category: 'music',
-      thumbnail: 'https://img.youtube.com/vi/EgmXTmj62ic/hqdefault.jpg'
-    },
-    {
-      id: 'v_quran_baqarah',
-      ytId: 'X2YnP50cwNU',
-      title: 'سورة البقرة كاملة تلاوة عطرة تريح القلب لطرد الشياطين | مشاري راشد العفاسي',
-      channel: { id: 'UCbZt5q5G1mN5yX9-q2fM8gA', name: 'مشاري راشد العفاسي', avatar: 'https://yt3.ggpht.com/ZI3AaaDaAt3nBKbw5wytoZ3vsQJRSuAvb-a3kYk7tnBb8GlettafQO3zE_F_o4TKm0HJUDLyXQ=s512-c-k-c0x00ffffff-no-rj', subs: '8.5M مشترك' },
-      duration: '1:58:10',
-      views: '62M مشاهدة',
-      uploadedAt: 'سنتين',
-      category: 'quran',
-      thumbnail: 'https://img.youtube.com/vi/X2YnP50cwNU/hqdefault.jpg'
-    },
-    {
-      id: 'v_tech_faisal',
-      ytId: 'slnbUY0X_Ug',
-      title: 'مراجعة أحدث الهواتف والتقنيات وتجربة الأداء الفائق لعام 2026',
-      channel: { id: 'UCa_F7_L6q_7b6f2x_k8p0qA', name: 'فيصل السيف | Tech Pills', avatar: 'https://yt3.ggpht.com/zWM2pKrGXdNN4vsU4Ilyc6nlfzoCFZkm5aV97uJbsDvi4L6DFAy9VftktRsYPIRGme-aOCuc8L8=s512-c-k-c0x00ffffff-no-rj', subs: '3.4M مشترك' },
-      duration: '14:30',
-      views: '680K مشاهدة',
-      uploadedAt: 'منذ 3 أيام',
-      category: 'tech',
-      thumbnail: 'https://img.youtube.com/vi/slnbUY0X_Ug/hqdefault.jpg'
-    },
-    {
-      id: 'v_realmadrid_moments',
-      ytId: 'IeUcyglJiZw',
-      title: 'جنون ريال مدريد: أفضل الأهداف واللحظات التاريخية وأعظم ريمونتادا في دوري أبطال أوروبا',
-      channel: { id: 'UCs_k9-z6r-9m8Y1v0_L4k8g', name: 'MadridistaTV | ريال مدريد', avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/120px-Real_Madrid_CF.svg.png', subs: '14.2M مشترك' },
-      duration: '14:20',
-      views: '8.4M مشاهدة',
-      uploadedAt: 'مؤخراً',
-      category: 'sports',
-      thumbnail: 'https://img.youtube.com/vi/IeUcyglJiZw/hqdefault.jpg'
     }
   ],
 
@@ -2367,6 +2363,7 @@ const ChannelViewer = {
 const PlayerEngine = {
   currentVideo: null,
   isCollapsed: true,
+  retryCount: 0,
 
   init() {
     this.container = document.getElementById('playerDockContainer');
@@ -2399,21 +2396,20 @@ const PlayerEngine = {
       }
     });
 
-    // Try Alternative Player Button in Blocked Overlay
-    const btnAlt = document.getElementById('btnTryAltEmbedStream');
-    if (btnAlt) {
-      btnAlt.addEventListener('click', () => {
-        if (!this.currentVideo || !this.currentVideo.ytId) return;
-        App.showToast('جاري تجربة خادم البث المباشر البديل...');
-        this.hideBlockedEmbedOverlay();
-        this.iframe.src = `https://invidious.f5.si/embed/${this.currentVideo.ytId}?autoplay=1`;
-      });
-    }
+    // Silent Automatic Error Recovery
+    window.addEventListener('message', (event) => {
+      try {
+        const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (data && (data.event === 'onError' || data.info === 150 || data.info === 101 || data.info === 100 || data.info === 2 || data.info === 5)) {
+          this.handlePlaybackError();
+        }
+      } catch (e) {}
+    });
   },
 
   play(video) {
     this.currentVideo = video;
-    this.hideBlockedEmbedOverlay();
+    this.retryCount = 0;
 
     const channelName = video.channel ? (typeof video.channel === 'string' ? video.channel : video.channel.name) : (video.author || 'قناة يوتيوب');
     const channelAvatar = (video.channel && video.channel.avatar) || 'https://yt3.ggpht.com/zAtHK665R2biTwIbTjWYOSCNrQgSdyDr1f_F6IaId745Eza0ctVDh08U_1Xd9aOJODB4K6P8H3s=s512-c-k-c0x00ffffff-no-rj';
@@ -2437,34 +2433,28 @@ const PlayerEngine = {
     this.container.classList.remove('hidden');
     this.expand();
 
-    // Check if video has restricted embedding rights (e.g. beIN SPORTS MENA)
-    if (PreviewManager.isVideoRestricted(video)) {
-      this.iframe.src = '';
-      this.showBlockedEmbedOverlay(video);
-    } else {
-      this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&hl=ar&gl=EG&cc_lang_pref=ar`;
-    }
+    // Universal Unrestricted Stream Embed with Referrer stripped
+    this.iframe.setAttribute('referrerpolicy', 'no-referrer');
+    this.iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen');
+    this.iframe.src = `https://www.youtube-nocookie.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&hl=ar&gl=EG`;
 
     LocalStorageStore.addToHistory(video);
     App.renderRelatedVideos(video.id || video.ytId);
     App.updatePlayerStates(video);
   },
 
-  showBlockedEmbedOverlay(video) {
-    const layer = document.getElementById('embedBlockedFallbackLayer');
-    const targetVideo = video || this.currentVideo;
-    if (!layer || !targetVideo) return;
+  handlePlaybackError() {
+    if (!this.currentVideo || this.retryCount > 2) return;
+    this.retryCount++;
+    const vidId = this.currentVideo.ytId;
+    if (!vidId) return;
 
-    const chName = targetVideo.channel ? (typeof targetVideo.channel === 'string' ? targetVideo.channel : targetVideo.channel.name) : (targetVideo.author || 'الناشر الرسمي');
-    document.getElementById('blockedVideoTitle').textContent = `🔒 محتوى محمي بحقوق البث (${chName})`;
-    document.getElementById('blockedVideoDesc').textContent = `قامت القناة (${chName}) بحصر تشغيل هذا الفيديو على يوتيوب مباشرة وحظر المشغلات المضمنة. يمكنك تشغيله فوراً بضغطة زر:`;
-    document.getElementById('btnOpenBlockedInYt').href = `https://www.youtube.com/watch?v=${targetVideo.ytId}`;
-    layer.classList.add('active');
-  },
-
-  hideBlockedEmbedOverlay() {
-    const layer = document.getElementById('embedBlockedFallbackLayer');
-    if (layer) layer.classList.remove('active');
+    // Silent Automatic Fallback Switch (Uninterrupted direct playback)
+    if (this.retryCount === 1) {
+      this.iframe.src = `https://www.youtube.com/embed/${vidId}?autoplay=1&playsinline=1&enablejsapi=1&origin=https://www.youtube.com&widget_referrer=https://www.youtube.com`;
+    } else if (this.retryCount === 2) {
+      this.iframe.src = `https://invidious.f5.si/embed/${vidId}?autoplay=1`;
+    }
   },
 
   expand() {
@@ -2479,7 +2469,6 @@ const PlayerEngine = {
 
   close() {
     this.iframe.src = '';
-    this.hideBlockedEmbedOverlay();
     this.container.classList.remove('active-player');
     this.container.classList.add('hidden');
     this.currentVideo = null;
@@ -2494,31 +2483,7 @@ const PreviewManager = {
   inViewObserver: null,
 
   isVideoRestricted(video) {
-    if (!video) return false;
-    let chName = '';
-    if (typeof video.channel === 'string') {
-      chName = video.channel;
-    } else if (video.channel && typeof video.channel.name === 'string') {
-      chName = video.channel.name;
-    } else if (typeof video.author === 'string') {
-      chName = video.author;
-    }
-
-    const title = (video.title || '').toLowerCase();
-    const chLower = (chName || '').toLowerCase();
-
-    // Known broadcasters and sports rights holders that block third-party web embeds
-    const restrictedKeywords = [
-      'bein', 'be in', 'بي ان', 'بي إن', 'بين سبورت', 'sports mena',
-      'uefa', 'fifa', 'champions league', 'دوري أبطال',
-      'laliga', 'premier league', 'الدوري الإنجليزي', 'الدوري الإسباني', 'الدوري الإيطالي',
-      'f1', 'formula 1', 'formula', 'فورمولا', 'باكو', 'baku',
-      'ssc', 'alkass', 'الكاس', 'أون تايم', 'ontime', 'on time',
-      'dazn', 'sky sports', 'nba', 'wwe', 'ufc', 'afc', 'كأس آسيا', 'كأس العالم',
-      'ملخص مباراة', 'أهداف مباراة', 'صراع مستمر'
-    ];
-
-    return restrictedKeywords.some(kw => chLower.includes(kw) || title.includes(kw));
+    return false;
   },
 
   init() {
@@ -2532,7 +2497,7 @@ const PreviewManager = {
               if (entry.isIntersecting && !PlayerEngine.currentVideo && !ChannelViewer.isOpen) {
                 this.startPreview(entry.target);
               }
-            }, 650);
+            }, 600);
           } else {
             if (this.activeCard === entry.target) {
               this.stopPreview(entry.target);
@@ -2541,24 +2506,9 @@ const PreviewManager = {
         });
       }, {
         root: scrollContainer,
-        threshold: 0.8
+        threshold: 0.85
       });
     }
-
-    // Global PostMessage listener for YouTube embed errors (Error 101/150: Embed blocked by broadcaster)
-    window.addEventListener('message', (event) => {
-      try {
-        const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-        if (data && (data.event === 'onError' || data.info === 150 || data.info === 101 || data.info === 100 || data.info === 2 || data.info === 5)) {
-          if (PreviewManager.activeCard) {
-            PreviewManager.stopPreview(PreviewManager.activeCard);
-          }
-          if (PlayerEngine.currentVideo) {
-            PlayerEngine.showBlockedEmbedOverlay(PlayerEngine.currentVideo);
-          }
-        }
-      } catch (e) {}
-    });
   },
 
   attach(card, video) {
@@ -2589,17 +2539,6 @@ const PreviewManager = {
     if (!card || !card._videoData) return;
     if (this.activeCard === card) return;
 
-    // 100% Protection: Check if video is restricted by broadcaster
-    if (this.isVideoRestricted(card._videoData)) {
-      // NEVER insert iframe for restricted broadcasts to prevent "الفيديو غير متاح" black error box
-      const pill = card.querySelector('.preview-badge-pill');
-      if (pill) {
-        pill.innerHTML = '<i class="fa-solid fa-lock" style="color:#ffb703;"></i> محتوى محمي بالحقوق';
-        pill.style.display = 'flex';
-      }
-      return;
-    }
-
     this.stopAll();
 
     const ytId = card._videoData.ytId;
@@ -2609,7 +2548,7 @@ const PreviewManager = {
     if (!overlay) return;
 
     // Create high-performance muted live player preview
-    overlay.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&controls=0&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&loop=1&playlist=${ytId}&hl=ar" allow="autoplay; encrypted-media"></iframe>`;
+    overlay.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&controls=0&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&loop=1&playlist=${ytId}&hl=ar" referrerpolicy="no-referrer" allow="autoplay; encrypted-media"></iframe>`;
     overlay.classList.add('active');
     this.activeCard = card;
   },
@@ -2998,13 +2937,11 @@ const App = {
       channelAvatar = video.channel.avatar;
     }
 
-    const isRestricted = PreviewManager.isVideoRestricted(video);
-    
     card.innerHTML = `
       <div class="yt-thumb-container">
         <img src="${video.thumbnail || `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg`}" alt="${video.title}" class="yt-thumb-img" loading="lazy">
         <div class="inline-preview-overlay"></div>
-        <div class="preview-badge-pill">${isRestricted ? '<i class="fa-solid fa-lock" style="color:#ffb703;"></i> محتوى محمي' : '<i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي'}</div>
+        <div class="preview-badge-pill"><i class="fa-solid fa-play" style="color:var(--yt-red);"></i> تشغيل تلقائي</div>
         <span class="yt-duration-badge">${video.duration || 'فيديو'}</span>
       </div>
       <div class="yt-video-info-row">
